@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
+import { VoiceChat } from '../components/VoiceChat';
 
 export function AIVoiceAssistantsPage() {
+  const [isVoiceChatOpen, setIsVoiceChatOpen] = useState(false);
+
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Services', url: '/#services' },
@@ -36,7 +39,7 @@ export function AIVoiceAssistantsPage() {
               <Button variant="primary" onClick={() => window.location.hash = '/contact'}>
                 Get Started
               </Button>
-              <Button variant="secondary">Hear Demo</Button>
+              <Button variant="secondary" onClick={() => setIsVoiceChatOpen(true)}>Hear Demo</Button>
             </div>
           </div>
         </div>
@@ -234,7 +237,7 @@ export function AIVoiceAssistantsPage() {
               <Button variant="primary" className="flex-1 text-lg" onClick={() => window.location.hash = '/contact'}>
                 Get Your Custom Quote
               </Button>
-              <Button variant="secondary" className="flex-1 text-lg">
+              <Button variant="secondary" className="flex-1 text-lg" onClick={() => setIsVoiceChatOpen(true)}>
                 Hear a Demo
               </Button>
             </div>
@@ -256,6 +259,9 @@ export function AIVoiceAssistantsPage() {
           </Button>
         </div>
       </section>
+
+      {/* Voice Chat Modal */}
+      <VoiceChat isOpen={isVoiceChatOpen} onClose={() => setIsVoiceChatOpen(false)} />
     </div>
   );
 }
