@@ -2,16 +2,22 @@ import React, { useState } from 'react';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { ContactFormData } from '../types';
+import { SEOHead } from '../components/SEOHead';
 
 const CONTACT_WEBHOOK_URL = import.meta.env.VITE_CONTACT_WEBHOOK_URL || '';
 
 export function ContactPage() {
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Contact', url: '/contact' },
+  ];
   const [formData, setFormData] = useState({
     name: '',
     businessName: '',
     phone: '',
     email: '',
     serviceType: '',
+    budget: '',
     interests: [] as string[],
     message: '',
     preferredContact: 'either' as 'phone' | 'email' | 'either',
@@ -45,11 +51,19 @@ export function ContactPage() {
 
     try {
       if (CONTACT_WEBHOOK_URL) {
+        console.log('Sending to webhook:', CONTACT_WEBHOOK_URL);
+        console.log('Payload:', payload);
+
         const response = await fetch(CONTACT_WEBHOOK_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify(payload),
         });
+
+        console.log('Response status:', response.status);
 
         if (response.ok) {
           setSubmitStatus({
@@ -62,17 +76,20 @@ export function ContactPage() {
             phone: '',
             email: '',
             serviceType: '',
+            budget: '',
             interests: [],
             message: '',
             preferredContact: 'either',
           });
         } else {
-          throw new Error('Webhook failed');
+          const errorText = await response.text();
+          console.error('Webhook error:', response.status, errorText);
+          throw new Error(`Webhook failed with status ${response.status}`);
         }
       } else {
         setSubmitStatus({
           type: 'success',
-          message: "Thank you! We'll contact you within 2 hours. You can also reach us directly at hello@antekautomation.co.uk",
+          message: "Thank you! We'll contact you within 2 hours. You can also reach us directly at hello@antekautomation.com",
         });
         setFormData({
           name: '',
@@ -80,15 +97,17 @@ export function ContactPage() {
           phone: '',
           email: '',
           serviceType: '',
+          budget: '',
           interests: [],
           message: '',
           preferredContact: 'either',
         });
       }
     } catch (error) {
+      console.error('Form submission error:', error);
       setSubmitStatus({
         type: 'error',
-        message: 'Something went wrong. Please email us directly at hello@antekautomation.co.uk',
+        message: 'Something went wrong. Please email us directly at hello@antekautomation.com',
       });
     } finally {
       setIsSubmitting(false);
@@ -97,10 +116,16 @@ export function ContactPage() {
 
   return (
     <div className="bg-off-white py-20 md:py-28">
+      <SEOHead
+        title="Contact Antek Automation | AI Automation Agency UK"
+        description="Contact Antek Automation: UK AI automation agency delivering bespoke workflows that streamline operations, cut costs & boost ROI for businesses nationwide."
+        path="/contact"
+        breadcrumbs={breadcrumbs}
+      />
       <div className="max-w-5xl mx-auto px-6 md:px-12">
         <div className="text-center mb-12">
           <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6">
-            Let's Talk Automation
+            Contact AI Automation Agency UK
           </h1>
           <p className="text-lg text-charcoal leading-normal max-w-2xl mx-auto">
             Tell us about your business and we'll show you exactly how AI automation can help you grow
@@ -110,15 +135,15 @@ export function ContactPage() {
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <Card>
             <h3 className="font-black text-xl uppercase text-charcoal mb-2">Email</h3>
-            <p className="text-charcoal">hello@antekautomation.co.uk</p>
+            <p className="text-charcoal">hello@antekautomation.com</p>
           </Card>
           <Card>
             <h3 className="font-black text-xl uppercase text-charcoal mb-2">Phone</h3>
-            <p className="text-charcoal">+44 20 1234 5678</p>
+            <p className="text-charcoal">0333 335 7920</p>
           </Card>
           <Card>
             <h3 className="font-black text-xl uppercase text-charcoal mb-2">Location</h3>
-            <p className="text-charcoal">London, United Kingdom</p>
+            <p className="text-charcoal">Hampshire, United Kingdom</p>
           </Card>
         </div>
 
@@ -183,22 +208,43 @@ export function ContactPage() {
               </div>
             </div>
 
-            <div>
-              <label className="font-black text-charcoal mb-2 block uppercase text-sm">
-                Service Type
-              </label>
-              <select
-                value={formData.serviceType}
-                onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                className="w-full border-3 border-charcoal bg-white px-4 py-3 focus:border-terracotta focus:outline-none text-charcoal"
-              >
-                <option value="">Select your industry</option>
-                <option value="trades">Tradespeople</option>
-                <option value="cleaning">Cleaning Services</option>
-                <option value="professional">Professional Services</option>
-                <option value="beauty">Beauty & Wellness</option>
-                <option value="other">Other</option>
-              </select>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="font-black text-charcoal mb-2 block uppercase text-sm">
+                  Service Type
+                </label>
+                <select
+                  value={formData.serviceType}
+                  onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
+                  className="w-full border-3 border-charcoal bg-white px-4 py-3 focus:border-terracotta focus:outline-none text-charcoal"
+                >
+                  <option value="">Select your industry</option>
+                  <option value="trades">Tradespeople</option>
+                  <option value="cleaning">Cleaning Services</option>
+                  <option value="professional">Professional Services</option>
+                  <option value="beauty">Beauty & Wellness</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="font-black text-charcoal mb-2 block uppercase text-sm">
+                  Budget Range
+                </label>
+                <select
+                  value={formData.budget}
+                  onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                  className="w-full border-3 border-charcoal bg-white px-4 py-3 focus:border-terracotta focus:outline-none text-charcoal"
+                >
+                  <option value="">Select your budget</option>
+                  <option value="500-999">£500 - £999</option>
+                  <option value="1000-1999">£1,000 - £1,999</option>
+                  <option value="2000-3999">£2,000 - £3,999</option>
+                  <option value="4000-7999">£4,000 - £7,999</option>
+                  <option value="8000+">£8,000+</option>
+                  <option value="not_sure">Not Sure</option>
+                </select>
+              </div>
             </div>
 
             <div>

@@ -2,23 +2,48 @@ import React from 'react';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
+import { SEOHead } from '../components/SEOHead';
 
 export function HomePage() {
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Antek Automation',
+    description: 'UK AI automation agency delivering bespoke workflows that streamline operations, cut costs & boost ROI for businesses nationwide.',
+    url: 'https://antekautomation.co.uk',
+    logo: 'https://antekautomation.co.uk/logo.svg',
+    areaServed: {
+      '@type': 'Country',
+      name: 'United Kingdom',
+    },
+    serviceType: ['AI Chatbots', 'Voice AI Assistants', 'Workflow Automation'],
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'GB',
+    },
+  };
+
   return (
     <div className="bg-off-white">
+      <SEOHead
+        title="Antek Automation | AI Automation Agency UK"
+        description="Antek Automation: UK AI automation agency delivering bespoke workflows that streamline operations, cut costs & boost ROI for businesses nationwide."
+        path="/"
+        schema={organizationSchema}
+      />
       <section className="bg-warm-beige border-b-3 border-charcoal">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-28">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-                Automate Your Service Business With AI
+                AI Automation Agency UK
               </h1>
               <p className="text-lg text-charcoal leading-normal mb-8">
                 Stop losing customers to missed calls and slow responses. Antek Automation deploys AI chatbots, voice agents, and workflow automation that work 24/7 to capture leads, book appointments, and grow your revenue.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button variant="primary">Get Started Free</Button>
-                <Button variant="secondary">See How It Works</Button>
+                <Button variant="primary" onClick={() => window.location.hash = '/contact'}>Get Started Free</Button>
+                <Button variant="secondary" onClick={() => window.dispatchEvent(new Event('openChatbot'))}>See How It Works</Button>
               </div>
             </div>
             <div className="relative">
@@ -64,7 +89,7 @@ export function HomePage() {
               <p className="text-charcoal leading-normal mb-6">
                 Website chat that qualifies leads, answers FAQs, and books appointments instantly while you focus on delivering service.
               </p>
-              <Button variant="primary" className="w-full">Learn More</Button>
+              <Button variant="primary" className="w-full" onClick={() => window.location.hash = '/services/ai-chatbots'}>Learn More</Button>
             </Card>
 
             <Card hover>
@@ -75,7 +100,7 @@ export function HomePage() {
               <p className="text-charcoal leading-normal mb-6">
                 Phone agents that answer calls, take bookings, and handle customer questions with natural conversation 24/7.
               </p>
-              <Button variant="primary" className="w-full">Learn More</Button>
+              <Button variant="primary" className="w-full" onClick={() => window.location.hash = '/services/ai-voice-assistants'}>Learn More</Button>
             </Card>
 
             <Card hover>
@@ -86,7 +111,7 @@ export function HomePage() {
               <p className="text-charcoal leading-normal mb-6">
                 Connect your tools and eliminate repetitive tasks. From scheduling to invoicing, let AI handle the busywork.
               </p>
-              <Button variant="primary" className="w-full">Learn More</Button>
+              <Button variant="primary" className="w-full" onClick={() => window.location.hash = '/services/workflow-automation'}>Learn More</Button>
             </Card>
           </div>
         </div>
@@ -212,7 +237,7 @@ export function HomePage() {
                 Launch & Grow
               </h3>
               <p className="text-charcoal leading-normal">
-                Your AI starts working immediately. We monitor, optimize, and help you scale as you grow.
+                Your AI starts working immediately. We monitor, optimise, and help you scale as you grow.
               </p>
             </div>
           </div>
@@ -279,7 +304,7 @@ export function HomePage() {
           <p className="text-lg text-off-white leading-normal mb-8">
             Book a free consultation and discover how AI can transform your service business
           </p>
-          <Button variant="primary" className="text-lg px-10">
+          <Button variant="primary" className="text-lg px-10" onClick={() => window.location.hash = '/contact'}>
             Get Started Today
           </Button>
         </div>

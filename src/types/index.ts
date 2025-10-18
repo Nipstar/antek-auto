@@ -4,6 +4,7 @@ export interface ContactFormData {
   phone: string;
   email: string;
   serviceType?: string;
+  budget?: string;
   interests: string[];
   message?: string;
   preferredContact: 'phone' | 'email' | 'either';

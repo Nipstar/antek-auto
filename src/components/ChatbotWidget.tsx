@@ -12,6 +12,7 @@ export function ChatbotWidget() {
   const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const [hasAutoOpened, setHasAutoOpened] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const hasVisited = localStorage.getItem('chatbot_visited');
@@ -37,9 +38,37 @@ export function ChatbotWidget() {
     }
   }, [hasAutoOpened, sessionId]);
 
+  // Listen for custom event to open chatbot
+  useEffect(() => {
+    const handleOpenChatbot = () => {
+      setIsOpen(true);
+      if (messages.length === 0) {
+        const welcomeMessage: ChatMessage = {
+          id: `msg_${Date.now()}`,
+          sessionId,
+          message: "Hello! I'm Antek AI. How can I help you automate your business today?",
+          timestamp: new Date().toISOString(),
+          pageUrl: window.location.href,
+          source: 'website_chatbot',
+          isBot: true,
+        };
+        setMessages([welcomeMessage]);
+      }
+    };
+
+    window.addEventListener('openChatbot', handleOpenChatbot);
+    return () => window.removeEventListener('openChatbot', handleOpenChatbot);
+  }, [sessionId, messages.length]);
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  useEffect(() => {
+    if (isOpen && !isLoading) {
+      inputRef.current?.focus();
+    }
+  }, [isOpen, isLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,6 +90,15 @@ export function ChatbotWidget() {
 
     try {
       if (CHATBOT_WEBHOOK_URL) {
+        console.log('Sending to webhook:', CHATBOT_WEBHOOK_URL);
+        console.log('Payload:', {
+          sessionId: userMessage.sessionId,
+          message: userMessage.message,
+          timestamp: userMessage.timestamp,
+          pageUrl: userMessage.pageUrl,
+          source: userMessage.source,
+        });
+
         const response = await fetch(CHATBOT_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -73,12 +111,33 @@ export function ChatbotWidget() {
           }),
         });
 
+        console.log('Response status:', response.status);
+        console.log('Response ok:', response.ok);
+
         if (response.ok) {
-          const data = await response.json();
+          const responseText = await response.text();
+          console.log('Raw response text:', responseText);
+
+          let data;
+          try {
+            data = JSON.parse(responseText);
+            console.log('Parsed response data:', data);
+
+            // Handle array response format from n8n
+            if (Array.isArray(data) && data.length > 0) {
+              data = data[0];
+              console.log('Extracted first item from array:', data);
+            }
+          } catch (parseError) {
+            console.error('JSON parse error:', parseError);
+            console.log('Response was not valid JSON, using as plain text');
+            data = { output: responseText };
+          }
+
           const botReply: ChatMessage = {
             id: `msg_${Date.now()}`,
             sessionId,
-            message: data.reply || "Thanks for your message! We'll get back to you shortly.",
+            message: data.output || data.reply || "Thanks for your message! We'll get back to you shortly.",
             timestamp: new Date().toISOString(),
             pageUrl: window.location.href,
             source: 'website_chatbot',
@@ -86,13 +145,15 @@ export function ChatbotWidget() {
           };
           setMessages((prev) => [...prev, botReply]);
         } else {
+          console.error('Webhook failed with status:', response.status);
           throw new Error('Webhook failed');
         }
       } else {
+        console.log('No webhook URL configured');
         const botReply: ChatMessage = {
           id: `msg_${Date.now()}`,
           sessionId,
-          message: "Thanks for reaching out! Our team will respond soon. You can also email us at hello@antekautomation.co.uk",
+          message: "Thanks for reaching out! Our team will respond soon. You can also email us at hello@antekautomation.com",
           timestamp: new Date().toISOString(),
           pageUrl: window.location.href,
           source: 'website_chatbot',
@@ -101,10 +162,11 @@ export function ChatbotWidget() {
         setMessages((prev) => [...prev, botReply]);
       }
     } catch (error) {
+      console.error('Chatbot error:', error);
       const errorMessage: ChatMessage = {
         id: `msg_${Date.now()}`,
         sessionId,
-        message: "Connection error. Please try again or email us at hello@antekautomation.co.uk",
+        message: "Connection error. Please try again or email us at hello@antekautomation.com",
         timestamp: new Date().toISOString(),
         pageUrl: window.location.href,
         source: 'website_chatbot',
@@ -172,6 +234,7 @@ export function ChatbotWidget() {
 
           <form onSubmit={handleSubmit} className="border-t-3 border-charcoal p-4 flex gap-2 bg-off-white">
             <input
+              ref={inputRef}
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
