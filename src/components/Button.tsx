@@ -10,7 +10,7 @@ export function Button({ variant = 'primary', children, className = '', ...props
 
   const variantClasses = {
     primary: 'bg-terracotta text-off-white',
-    secondary: 'bg-off-white text-charcoal',
+    secondary: 'bg-warm-beige text-charcoal',
   };
 
   return (

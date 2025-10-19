@@ -193,7 +193,7 @@ export function ChatbotWidget() {
       </button>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-full max-w-[400px] h-[600px] md:w-[400px] bg-off-white border-3 border-charcoal shadow-brutal-chat flex flex-col z-50 mx-4 md:mx-0">
+        <div className="fixed bottom-24 left-4 right-4 md:bottom-24 md:right-6 md:left-auto w-auto md:w-[400px] max-h-[calc(100vh-150px)] md:h-[600px] bg-off-white border-3 border-charcoal shadow-brutal-chat flex flex-col z-50">
           <div className="bg-warm-beige border-b-3 border-charcoal p-4 flex items-center justify-between">
             <div>
               <h3 className="font-black text-xl uppercase">Antek AI</h3>
