@@ -3,7 +3,7 @@ Allow: /
 Disallow: /admin/
 Disallow: /.env*
 
-Sitemap: https://antekautomation.co.uk/sitemap.xml
+Sitemap: https://antekautomation.com/sitemap.xml
 
 # Block AI crawlers
 User-agent: GPTBot
