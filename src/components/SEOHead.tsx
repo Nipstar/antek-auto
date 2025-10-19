@@ -34,13 +34,13 @@ export function SEOHead({ title, description, path, breadcrumbs, schema }: SEOHe
       canonicalLink.setAttribute('rel', 'canonical');
       document.head.appendChild(canonicalLink);
     }
-    canonicalLink.setAttribute('href', `https://antekautomation.co.uk${path}`);
+    canonicalLink.setAttribute('href', `https://antekautomation.com${path}`);
 
     // Set or update Open Graph tags
     const ogTags = [
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
-      { property: 'og:url', content: `https://antekautomation.co.uk${path}` },
+      { property: 'og:url', content: `https://antekautomation.com${path}` },
       { property: 'og:type', content: 'website' },
     ];
 
@@ -80,7 +80,7 @@ export function SEOHead({ title, description, path, breadcrumbs, schema }: SEOHe
           '@type': 'ListItem',
           position: index + 1,
           name: item.name,
-          item: `https://antekautomation.co.uk${item.url}`,
+          item: `https://antekautomation.com${item.url}`,
         })),
       };
 

@@ -14,8 +14,8 @@ export function HomePage() {
     '@type': 'Organization',
     name: 'Antek Automation',
     description: 'UK AI automation agency delivering bespoke workflows that streamline operations, cut costs & boost ROI for businesses nationwide.',
-    url: 'https://antekautomation.co.uk',
-    logo: 'https://antekautomation.co.uk/logo.svg',
+    url: 'https://antekautomation.com',
+    logo: 'https://antekautomation.com/logo.svg',
     areaServed: {
       '@type': 'Country',
       name: 'United Kingdom',
