@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from './Button';
 
+const navigate = (path: string) => {
+  window.history.pushState(null, '', path);
+  window.dispatchEvent(new PopStateEvent('popstate'));
+};
+
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'Industries', href: '#industries' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'Home', href: '/', onClick: () => navigate('/') },
+    { label: 'Industries', href: '/', onClick: () => { navigate('/'); setTimeout(() => document.getElementById('industries')?.scrollIntoView({ behavior: 'smooth' }), 100); } },
+    { label: 'Contact', href: '/contact', onClick: () => navigate('/contact') },
   ];
 
   const serviceLinks = [
@@ -31,13 +36,13 @@ export function Navigation() {
 
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.href}
-                href={link.href}
-                className="font-bold uppercase text-sm text-charcoal hover:text-terracotta transition-colors"
+                onClick={() => link.onClick?.()}
+                className="font-bold uppercase text-sm text-charcoal hover:text-terracotta transition-colors bg-transparent border-none cursor-pointer"
               >
                 {link.label}
-              </a>
+              </button>
             ))}
             <div className="relative">
               <button
@@ -58,20 +63,19 @@ export function Navigation() {
                     className="absolute top-full left-0 mt-2 bg-off-white border-3 border-charcoal shadow-brutal min-w-[260px] z-20"
                   >
                     {serviceLinks.map((link) => (
-                      <a
+                      <button
                         key={link.href}
-                        href={link.href}
-                        onClick={() => setIsServicesOpen(false)}
-                        className="block px-6 py-4 font-bold uppercase text-sm text-charcoal hover:bg-warm-beige transition-colors border-b-3 border-charcoal last:border-b-0"
+                        onClick={() => { navigate(link.href); setIsServicesOpen(false); }}
+                        className="block w-full text-left px-6 py-4 font-bold uppercase text-sm text-charcoal hover:bg-warm-beige transition-colors border-b-3 border-charcoal last:border-b-0 bg-transparent border-none cursor-pointer"
                       >
                         {link.label}
-                      </a>
+                      </button>
                     ))}
                   </div>
                 </>
               )}
             </div>
-            <Button variant="primary" onClick={() => window.location.hash = '/contact'}>Get Started</Button>
+            <Button variant="primary" onClick={() => navigate('/contact')}>Get Started</Button>
           </div>
 
           <button
@@ -92,29 +96,27 @@ export function Navigation() {
           <div className="md:hidden border-t-3 border-charcoal bg-warm-beige">
             <div className="flex flex-col space-y-4 p-6">
               {navLinks.map((link) => (
-                <a
+                <button
                   key={link.href}
-                  href={link.href}
-                  className="font-bold uppercase text-sm text-charcoal hover:text-terracotta transition-colors"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => { link.onClick?.(); setIsOpen(false); }}
+                  className="font-bold uppercase text-sm text-charcoal hover:text-terracotta transition-colors text-left bg-transparent border-none cursor-pointer"
                 >
                   {link.label}
-                </a>
+                </button>
               ))}
               <div className="border-t-3 border-charcoal pt-4">
                 <p className="font-black uppercase text-xs text-charcoal mb-3">Services</p>
                 {serviceLinks.map((link) => (
-                  <a
+                  <button
                     key={link.href}
-                    href={link.href}
-                    className="block font-bold uppercase text-sm text-charcoal hover:text-terracotta transition-colors mb-3"
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => { navigate(link.href); setIsOpen(false); }}
+                    className="block font-bold uppercase text-sm text-charcoal hover:text-terracotta transition-colors mb-3 text-left w-full bg-transparent border-none cursor-pointer"
                   >
                     {link.label}
-                  </a>
+                  </button>
                 ))}
               </div>
-              <Button variant="primary" className="w-full" onClick={() => { window.location.hash = '/contact'; setIsOpen(false); }}>
+              <Button variant="primary" className="w-full" onClick={() => { navigate('/contact'); setIsOpen(false); }}>
                 Get Started
               </Button>
             </div>
