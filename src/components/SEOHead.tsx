@@ -84,9 +84,9 @@ export function SEOHead({ title, description, path, breadcrumbs, schema }: SEOHe
         })),
       };
 
-      let breadcrumbScript = document.getElementById('breadcrumb-schema');
+      let breadcrumbScript = document.getElementById('breadcrumb-schema') as HTMLScriptElement | null;
       if (!breadcrumbScript) {
-        breadcrumbScript = document.createElement('script');
+        breadcrumbScript = document.createElement('script') as HTMLScriptElement;
         breadcrumbScript.id = 'breadcrumb-schema';
         breadcrumbScript.type = 'application/ld+json';
         document.head.appendChild(breadcrumbScript);
@@ -96,9 +96,9 @@ export function SEOHead({ title, description, path, breadcrumbs, schema }: SEOHe
 
     // Add custom schema if provided
     if (schema) {
-      let schemaScript = document.getElementById('page-schema');
+      let schemaScript = document.getElementById('page-schema') as HTMLScriptElement | null;
       if (!schemaScript) {
-        schemaScript = document.createElement('script');
+        schemaScript = document.createElement('script') as HTMLScriptElement;
         schemaScript.id = 'page-schema';
         schemaScript.type = 'application/ld+json';
         document.head.appendChild(schemaScript);

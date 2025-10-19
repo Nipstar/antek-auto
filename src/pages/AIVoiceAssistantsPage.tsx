@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
@@ -6,6 +6,11 @@ import { SEOHead } from '../components/SEOHead';
 
 // Lazy load voice chat component (only needed when user clicks demo)
 const VoiceChat = lazy(() => import('../components/VoiceChat').then(m => ({ default: m.VoiceChat })));
+
+const navigate = (path: string) => {
+  window.history.pushState(null, '', path);
+  window.dispatchEvent(new PopStateEvent('popstate'));
+};
 
 export function AIVoiceAssistantsPage() {
   const [isVoiceChatOpen, setIsVoiceChatOpen] = useState(false);

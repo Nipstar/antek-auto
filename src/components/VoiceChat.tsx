@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useConversation } from '@elevenlabs/react';
-import { X, Mic, MicOff, Phone } from 'lucide-react';
+import { X, Mic, Phone } from 'lucide-react';
 
 interface VoiceChatProps {
   isOpen: boolean;
@@ -8,7 +8,7 @@ interface VoiceChatProps {
 }
 
 export function VoiceChat({ isOpen, onClose }: VoiceChatProps) {
-  const { status, isSpeaking, startSession, endSession, toggleMute, isMuted } = useConversation({
+  const { status, isSpeaking, startSession, endSession } = useConversation({
     agentId: 'agent_0701k72hgm7se1gvm1db45vg23r1',
   });
 
@@ -24,8 +24,11 @@ export function VoiceChat({ isOpen, onClose }: VoiceChatProps) {
       setDisplayStatus('idle');
     } else {
       // Auto-start conversation when modal opens
-      if (status === 'disconnected' || status === 'connecting') {
-        startSession();
+      if (status === 'disconnected') {
+        startSession({
+          agentId: 'agent_0701k72hgm7se1gvm1db45vg23r1',
+          connectionType: 'websocket',
+        });
       }
     }
   }, [isOpen, status, startSession, endSession]);
@@ -145,21 +148,10 @@ export function VoiceChat({ isOpen, onClose }: VoiceChatProps) {
 
         {/* Controls */}
         <div className="border-t-3 border-charcoal bg-off-white p-4 flex gap-3">
-          {/* Mute Button */}
-          <button
-            onClick={toggleMute}
-            disabled={displayStatus === 'idle' || displayStatus === 'connecting' || displayStatus === 'error'}
-            className="flex-1 bg-muted-taupe text-off-white px-4 py-3 border-3 border-charcoal shadow-brutal-xs font-black uppercase text-sm hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-brutal-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 rounded-sm"
-            aria-label={isMuted ? 'Unmute' : 'Mute'}
-          >
-            {isMuted ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
-            <span>{isMuted ? 'Muted' : 'Mute'}</span>
-          </button>
-
           {/* End Call Button */}
           <button
             onClick={handleEndCall}
-            className="flex-1 bg-peach text-charcoal px-4 py-3 border-3 border-charcoal shadow-brutal-xs font-black uppercase text-sm hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-brutal-sm transition-all duration-200 flex items-center justify-center gap-2 rounded-sm"
+            className="w-full bg-peach text-charcoal px-4 py-3 border-3 border-charcoal shadow-brutal-xs font-black uppercase text-sm hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-brutal-sm transition-all duration-200 flex items-center justify-center gap-2 rounded-sm"
           >
             <Phone className="w-4 h-4" />
             <span>End Call</span>

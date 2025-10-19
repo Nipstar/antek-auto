@@ -1,8 +1,12 @@
-import React from 'react';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
+
+const navigate = (path: string) => {
+  window.history.pushState(null, '', path);
+  window.dispatchEvent(new PopStateEvent('popstate'));
+};
 
 export function WorkflowAutomationPage() {
   const breadcrumbs = [

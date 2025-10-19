@@ -1,4 +1,3 @@
-import React from 'react';
 import { getAllCities } from '../data/cities';
 
 export function Footer() {
