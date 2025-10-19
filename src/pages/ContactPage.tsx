@@ -125,7 +125,7 @@ export function ContactPage() {
       <div className="max-w-5xl mx-auto px-6 md:px-12">
         <div className="text-center mb-12">
           <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6">
-            Contact AI Automation Agency UK
+            Get Started with Antek Automation
           </h1>
           <p className="text-lg text-charcoal leading-normal max-w-2xl mx-auto">
             Tell us about your business and we'll show you exactly how AI automation can help you grow

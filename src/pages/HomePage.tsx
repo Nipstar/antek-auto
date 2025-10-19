@@ -36,8 +36,11 @@ export function HomePage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-                AI Automation Agency UK
+                Antek Automation
               </h1>
+              <p className="text-xl md:text-2xl font-bold text-terracotta mb-6">
+                AI That Works for Your Business
+              </p>
               <p className="text-lg text-charcoal leading-normal mb-8">
                 Stop losing customers to missed calls and slow responses. Antek Automation deploys AI chatbots, voice agents, and workflow automation that work 24/7 to capture leads, book appointments, and grow your revenue.
               </p>

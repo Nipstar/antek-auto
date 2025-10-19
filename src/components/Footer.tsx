@@ -10,12 +10,12 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-16">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
           <div>
-            <div className="flex items-center space-x-3 mb-6">
-              <Icon letter="A" size="sm" />
+            <a href="#/" className="flex items-center space-x-3 mb-6 hover:opacity-80 transition-opacity">
+              <img src="/logo.svg" alt="Antek Automation Logo" className="w-12 h-12" />
               <span className="font-black text-xl uppercase text-off-white">
-                Antek
+                Antek Automation
               </span>
-            </div>
+            </a>
             <p className="text-off-white leading-normal">
               AI automation solutions for UK service businesses. Save time, increase revenue, and delight customers.
             </p>

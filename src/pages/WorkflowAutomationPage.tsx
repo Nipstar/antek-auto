@@ -27,7 +27,7 @@ export function WorkflowAutomationPage() {
               WORKFLOW AUTOMATION | SAVE 10-20 HOURS WEEKLY | UK SERVICE BUSINESSES
             </p>
             <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-              Workflow Automation | AI Automation Agency UK
+              Workflow Automation
             </h1>
             <p className="text-lg text-charcoal leading-normal mb-8">
               Your business shouldn't require you to manually copy data between systems, send the same emails repeatedly, or chase payments. We build custom workflows using n8n that connect your tools and automate the repetitive work—so you can focus on growth.
