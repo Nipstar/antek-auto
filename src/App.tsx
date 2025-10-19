@@ -13,17 +13,24 @@ const AIVoiceAssistantsPage = lazy(() => import('./pages/AIVoiceAssistantsPage')
 const WorkflowAutomationPage = lazy(() => import('./pages/WorkflowAutomationPage').then(m => ({ default: m.WorkflowAutomationPage })));
 const LocationPage = lazy(() => import('./pages/LocationPage').then(m => ({ default: m.LocationPage })));
 
+// Global navigate function for easy access in onClick handlers
+const navigate = (path: string) => {
+  window.history.pushState(null, '', path);
+  window.dispatchEvent(new PopStateEvent('popstate'));
+};
+(window as any).navigate = navigate;
+
 function App() {
-  const [currentPath, setCurrentPath] = useState(window.location.hash.slice(1) || '/');
+  const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');
 
   useEffect(() => {
-    const handleHashChange = () => {
-      setCurrentPath(window.location.hash.slice(1) || '/');
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname || '/');
       window.scrollTo(0, 0); // Scroll to top on route change
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   const renderPage = () => {

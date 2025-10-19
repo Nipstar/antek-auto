@@ -33,7 +33,7 @@ export function WorkflowAutomationPage() {
               Your business shouldn't require you to manually copy data between systems, send the same emails repeatedly, or chase payments. We build custom workflows using n8n that connect your tools and automate the repetitive work—so you can focus on growth.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button variant="primary" onClick={() => window.location.hash = '/contact'}>
+              <Button variant="primary" onClick={() => navigate('/contact')}>
                 Get Started
               </Button>
               <Button variant="secondary" onClick={() => window.dispatchEvent(new Event('openChatbot'))}>See Examples</Button>
@@ -218,7 +218,7 @@ export function WorkflowAutomationPage() {
                   <span>30 days support</span>
                 </li>
               </ul>
-              <Button variant="secondary" className="w-full" onClick={() => window.location.hash = '/contact'}>
+              <Button variant="secondary" className="w-full" onClick={() => navigate('/contact')}>
                 Get Quote
               </Button>
             </Card>
@@ -254,7 +254,7 @@ export function WorkflowAutomationPage() {
                   <span>Training session included</span>
                 </li>
               </ul>
-              <Button variant="primary" className="w-full" onClick={() => window.location.hash = '/contact'}>
+              <Button variant="primary" className="w-full" onClick={() => navigate('/contact')}>
                 Get Quote
               </Button>
             </Card>
@@ -285,7 +285,7 @@ export function WorkflowAutomationPage() {
                   <span>Dedicated implementation</span>
                 </li>
               </ul>
-              <Button variant="secondary" className="w-full" onClick={() => window.location.hash = '/contact'}>
+              <Button variant="secondary" className="w-full" onClick={() => navigate('/contact')}>
                 Get Quote
               </Button>
             </Card>
@@ -306,7 +306,7 @@ export function WorkflowAutomationPage() {
           <p className="text-lg text-off-white leading-normal mb-8">
             Book a free consultation and we'll identify which tasks in your business can be automated
           </p>
-          <Button variant="primary" className="text-lg px-10" onClick={() => window.location.hash = '/contact'}>
+          <Button variant="primary" className="text-lg px-10" onClick={() => navigate('/contact')}>
             Book Free Consultation
           </Button>
         </div>

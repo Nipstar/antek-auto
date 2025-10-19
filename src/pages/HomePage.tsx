@@ -45,7 +45,7 @@ export function HomePage() {
                 Stop losing customers to missed calls and slow responses. Antek Automation deploys AI chatbots, voice agents, and workflow automation that work 24/7 to capture leads, book appointments, and grow your revenue.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button variant="primary" onClick={() => window.location.hash = '/contact'}>Get Started Free</Button>
+                <Button variant="primary" onClick={() => navigate('/contact')}>Get Started Free</Button>
                 <Button variant="secondary" onClick={() => window.dispatchEvent(new Event('openChatbot'))}>See How It Works</Button>
               </div>
             </div>
@@ -92,7 +92,7 @@ export function HomePage() {
               <p className="text-charcoal leading-normal mb-6">
                 Website chat that qualifies leads, answers FAQs, and books appointments instantly while you focus on delivering service.
               </p>
-              <Button variant="primary" className="w-full" onClick={() => window.location.hash = '/services/ai-chatbots'}>Learn More</Button>
+              <Button variant="primary" className="w-full" onClick={() => navigate('/services/ai-chatbots')}>Learn More</Button>
             </Card>
 
             <Card hover>
@@ -103,7 +103,7 @@ export function HomePage() {
               <p className="text-charcoal leading-normal mb-6">
                 Phone agents that answer calls, take bookings, and handle customer questions with natural conversation 24/7.
               </p>
-              <Button variant="primary" className="w-full" onClick={() => window.location.hash = '/services/ai-voice-assistants'}>Learn More</Button>
+              <Button variant="primary" className="w-full" onClick={() => navigate('/services/ai-voice-assistants')}>Learn More</Button>
             </Card>
 
             <Card hover>
@@ -114,7 +114,7 @@ export function HomePage() {
               <p className="text-charcoal leading-normal mb-6">
                 Connect your tools and eliminate repetitive tasks. From scheduling to invoicing, let AI handle the busywork.
               </p>
-              <Button variant="primary" className="w-full" onClick={() => window.location.hash = '/services/workflow-automation'}>Learn More</Button>
+              <Button variant="primary" className="w-full" onClick={() => navigate('/services/workflow-automation')}>Learn More</Button>
             </Card>
           </div>
         </div>
@@ -307,7 +307,7 @@ export function HomePage() {
           <p className="text-lg text-off-white leading-normal mb-8">
             Book a free consultation and discover how AI can transform your service business
           </p>
-          <Button variant="primary" className="text-lg px-10" onClick={() => window.location.hash = '/contact'}>
+          <Button variant="primary" className="text-lg px-10" onClick={() => navigate('/contact')}>
             Get Started Today
           </Button>
         </div>

@@ -8,7 +8,11 @@
       "Bash(npm run typecheck)",
       "Bash(npm run lint -- src/components/ChatbotWidget.tsx)",
       "Read(//Users/andrewnorman/Library/**)",
-      "Bash(npm run build)"
+      "Bash(npm run build)",
+      "Bash(cd /Users/andrewnorman/Library/Mobile\\ Documents/com~apple~CloudDocs/Code\\ Projects/Bolt/antek-bolt && npm run dev:*)",
+      "Bash(find:*)",
+      "Bash(git checkout -- src/pages/*.tsx)",
+      "Bash(cd /Users/andrewnorman/Library/Mobile\\ Documents/com~apple~CloudDocs/Code\\ Projects/Bolt/antek-bolt && git checkout:*)"
     ],
     "deny": [],
     "ask": []

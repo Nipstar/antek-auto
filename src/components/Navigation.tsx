@@ -7,22 +7,22 @@ export function Navigation() {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Home', href: '#/' },
+    { label: 'Home', href: '/' },
     { label: 'Industries', href: '#industries' },
-    { label: 'Contact', href: '#/contact' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   const serviceLinks = [
-    { label: 'AI Chatbots', href: '#/services/ai-chatbots' },
-    { label: 'AI Voice Assistants', href: '#/services/ai-voice-assistants' },
-    { label: 'Workflow Automation', href: '#/services/workflow-automation' },
+    { label: 'AI Chatbots', href: '/services/ai-chatbots' },
+    { label: 'AI Voice Assistants', href: '/services/ai-voice-assistants' },
+    { label: 'Workflow Automation', href: '/services/workflow-automation' },
   ];
 
   return (
     <nav className="sticky top-0 z-40 bg-off-white border-b-3 border-charcoal">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex items-center justify-between h-20">
-          <a href="#/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+          <a href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
             <img src="/logo.svg" alt="Antek Automation Logo" className="w-14 h-14" />
             <span className="font-black text-2xl uppercase text-charcoal">
               Antek Automation

@@ -33,7 +33,7 @@ export function AIChatbotsPage() {
               Your website visitors want answers now, not tomorrow. Our AI chatbots capture leads, answer questions, and book appointments 24/7—even when you're busy or asleep.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button variant="primary" onClick={() => window.location.hash = '/contact'}>
+              <Button variant="primary" onClick={() => navigate('/contact')}>
                 Get Started
               </Button>
               <Button variant="secondary" onClick={() => window.dispatchEvent(new Event('openChatbot'))}>See Demo</Button>
@@ -250,7 +250,7 @@ export function AIChatbotsPage() {
               </div>
             </div>
 
-            <Button variant="primary" className="w-full text-lg" onClick={() => window.location.hash = '/contact'}>
+            <Button variant="primary" className="w-full text-lg" onClick={() => navigate('/contact')}>
               Get Your Custom Quote
             </Button>
           </Card>
@@ -266,7 +266,7 @@ export function AIChatbotsPage() {
           <p className="text-lg text-off-white leading-normal mb-8">
             Book a free consultation and we'll show you exactly how an AI chatbot can work for your business
           </p>
-          <Button variant="primary" className="text-lg px-10" onClick={() => window.location.hash = '/contact'}>
+          <Button variant="primary" className="text-lg px-10" onClick={() => navigate('/contact')}>
             Book Free Consultation
           </Button>
         </div>

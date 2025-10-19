@@ -38,7 +38,7 @@ export function AIVoiceAssistantsPage() {
               Stop dropping tools mid-job to answer the phone. Our intelligent assistants handle incoming calls 24/7, answer questions, take bookings, and route urgent matters to you—all with natural, human-like conversation.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button variant="primary" onClick={() => window.location.hash = '/contact'}>
+              <Button variant="primary" onClick={() => navigate('/contact')}>
                 Get Started
               </Button>
               <Button variant="secondary" onClick={() => setIsVoiceChatOpen(true)}>Hear Demo</Button>
@@ -236,7 +236,7 @@ export function AIVoiceAssistantsPage() {
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <Button variant="primary" className="flex-1 text-lg" onClick={() => window.location.hash = '/contact'}>
+              <Button variant="primary" className="flex-1 text-lg" onClick={() => navigate('/contact')}>
                 Get Your Custom Quote
               </Button>
               <Button variant="secondary" className="flex-1 text-lg" onClick={() => setIsVoiceChatOpen(true)}>
@@ -256,7 +256,7 @@ export function AIVoiceAssistantsPage() {
           <p className="text-lg text-off-white leading-normal mb-8">
             Book a free consultation and we'll show you how a voice assistant can transform your business
           </p>
-          <Button variant="primary" className="text-lg px-10" onClick={() => window.location.hash = '/contact'}>
+          <Button variant="primary" className="text-lg px-10" onClick={() => navigate('/contact')}>
             Book Free Consultation
           </Button>
         </div>

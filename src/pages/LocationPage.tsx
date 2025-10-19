@@ -22,7 +22,7 @@ export function LocationPage({ citySlug }: LocationPageProps) {
           <p className="text-charcoal mb-8">
             We couldn't find information for this location.
           </p>
-          <Button variant="primary" onClick={() => (window.location.hash = '/')}>
+          <Button variant="primary" onClick={() => (navigate('/'))}>
             Return Home
           </Button>
         </div>
@@ -81,10 +81,10 @@ export function LocationPage({ citySlug }: LocationPageProps) {
               {city.heroDescription}
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button variant="primary" onClick={() => (window.location.hash = '/contact')}>
+              <Button variant="primary" onClick={() => (navigate('/contact'))}>
                 Get Started
               </Button>
-              <Button variant="secondary" onClick={() => (window.location.hash = '/#services')}>
+              <Button variant="secondary" onClick={() => (navigate('/#services'))}>
                 Our Services
               </Button>
             </div>
@@ -138,7 +138,7 @@ export function LocationPage({ citySlug }: LocationPageProps) {
               <Button
                 variant="primary"
                 className="w-full"
-                onClick={() => (window.location.hash = '/services/ai-voice-assistants')}
+                onClick={() => (navigate('/services/ai-voice-assistants'))}
               >
                 Learn More
               </Button>
@@ -155,7 +155,7 @@ export function LocationPage({ citySlug }: LocationPageProps) {
               <Button
                 variant="primary"
                 className="w-full"
-                onClick={() => (window.location.hash = '/services/ai-chatbots')}
+                onClick={() => (navigate('/services/ai-chatbots'))}
               >
                 Learn More
               </Button>
@@ -172,7 +172,7 @@ export function LocationPage({ citySlug }: LocationPageProps) {
               <Button
                 variant="primary"
                 className="w-full"
-                onClick={() => (window.location.hash = '/services/workflow-automation')}
+                onClick={() => (navigate('/services/workflow-automation'))}
               >
                 Learn More
               </Button>
@@ -341,7 +341,7 @@ export function LocationPage({ citySlug }: LocationPageProps) {
           <Button
             variant="primary"
             className="text-lg px-10"
-            onClick={() => (window.location.hash = '/contact')}
+            onClick={() => (navigate('/contact'))}
           >
             Get Started Today
           </Button>
