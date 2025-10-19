@@ -1,5 +1,4 @@
 import React from 'react';
-import { Icon } from './Icon';
 import { getAllCities } from '../data/cities';
 
 export function Footer() {

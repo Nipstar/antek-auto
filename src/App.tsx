@@ -18,7 +18,12 @@ const navigate = (path: string) => {
   window.history.pushState(null, '', path);
   window.dispatchEvent(new PopStateEvent('popstate'));
 };
-(window as any).navigate = navigate;
+declare global {
+  interface Window {
+    navigate: (path: string) => void;
+  }
+}
+window.navigate = navigate;
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');

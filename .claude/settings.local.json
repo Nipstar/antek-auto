@@ -12,7 +12,8 @@
       "Bash(cd /Users/andrewnorman/Library/Mobile\\ Documents/com~apple~CloudDocs/Code\\ Projects/Bolt/antek-bolt && npm run dev:*)",
       "Bash(find:*)",
       "Bash(git checkout -- src/pages/*.tsx)",
-      "Bash(cd /Users/andrewnorman/Library/Mobile\\ Documents/com~apple~CloudDocs/Code\\ Projects/Bolt/antek-bolt && git checkout:*)"
+      "Bash(cd /Users/andrewnorman/Library/Mobile\\ Documents/com~apple~CloudDocs/Code\\ Projects/Bolt/antek-bolt && git checkout:*)",
+      "Bash(cd /Users/andrewnorman/Library/Mobile Documents/com~apple~CloudDocs/Code Projects/Bolt/antek-bolt && npm run lint:*)"
     ],
     "deny": [],
     "ask": []

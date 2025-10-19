@@ -300,7 +300,7 @@ export function ContactPage() {
                       name="preferredContact"
                       value={option.value}
                       checked={formData.preferredContact === option.value}
-                      onChange={(e) => setFormData({ ...formData, preferredContact: e.target.value as any })}
+                      onChange={(e) => setFormData({ ...formData, preferredContact: e.target.value as 'phone' | 'email' | 'either' })}
                       className="accent-terracotta w-5 h-5"
                     />
                     <span className="text-charcoal font-bold">{option.label}</span>
