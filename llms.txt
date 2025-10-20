@@ -4,7 +4,7 @@
 
 Antek Automation is a production-ready marketing website for a UK-based AI automation company. The site features a neo-brutalist design with an earth-tone color palette and serves as a lead generation platform for AI chatbot, voice assistant, and workflow automation services.
 
-**Live Site:** https://antekautomation.co.uk
+**Live Site:** https://antekautomation.com
 **Repository:** Internal Git repository
 **Status:** Production-ready with recent PageSpeed optimizations
 
