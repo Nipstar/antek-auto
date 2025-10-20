@@ -2,16 +2,3 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /.env*
-
-# Block AI crawlers
-User-agent: GPTBot
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
-
-User-agent: anthropic-ai
-Disallow: /
-
-User-agent: Claude-Web
-Disallow: /
