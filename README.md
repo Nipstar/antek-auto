@@ -8,7 +8,7 @@ A professional, production-ready website for Antek Automation - a UK-based AI au
 - **Earth-Tone Palette**: Warm beige, soft sage, terracotta, and charcoal colors
 - **AI Chatbot Widget**: Fixed-position chat with n8n webhook integration
 - **Contact Form**: Full form with n8n webhook for lead capture
-- **Responsive Design**: Mobile-first approach, optimized for all devices
+- **Responsive Design**: Mobile-first approach, optimised for all devices
 - **Multiple Pages**: Home, Pricing, and Contact pages
 - **Service Sections**: AI Chatbots, Voice AI, and Automation services
 - **Industry Focus**: Tradespeople, Cleaning, Professional Services, Beauty & Wellness

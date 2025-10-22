@@ -119,7 +119,7 @@ export function WorkflowAutomationPage() {
                 Customer Communication
               </h3>
               <p className="text-charcoal leading-normal">
-                Send personalized emails or SMS based on customer actions: welcome sequences, abandoned quote follow-ups, birthday messages, service reminders.
+                Send personalised emails or SMS based on customer actions: welcome sequences, abandoned quote follow-ups, birthday messages, service reminders.
               </p>
             </Card>
 

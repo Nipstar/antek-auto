@@ -1,4 +1,5 @@
 import { getAllCities } from '../data/cities';
+import { CONSTANTS } from '../constants';
 
 export function Footer() {
   const cities = getAllCities();
@@ -76,7 +77,7 @@ export function Footer() {
             <h4 className="font-black uppercase text-off-white mb-4">Contact</h4>
             <ul className="space-y-3">
               <li className="text-off-white">
-                Email: hello@antekautomation.com
+                Email: {CONSTANTS.CONTACT_EMAIL}
               </li>
               <li className="text-off-white">
                 Phone: 0333 335 7920

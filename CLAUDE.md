@@ -28,21 +28,41 @@ npm run build
 npm run preview
 ```
 
+### Pre-Commit Checklist
+
+Before committing code, always run these commands to ensure code quality:
+
+```bash
+# 1. Run type checker (catches TypeScript errors)
+npm run typecheck
+
+# 2. Run linter (catches style issues and React hook violations)
+npm run lint
+
+# 3. Verify no unused imports/variables (caught by both above commands in strict mode)
+```
+
+**Why This Matters:**
+- TypeScript strict mode (`noUnusedLocals: true`, `noUnusedParameters: true`) enforces clean code
+- React Hooks rules catch common bugs (hooks only at top level, dependency arrays, etc.)
+- Linting ensures code consistency across the team
+- **Failing these checks will block your commits** if you have pre-commit hooks configured
+
 ## Architecture
 
 ### Routing
-The app uses **hash-based routing** (not React Router). Routes are handled in `src/App.tsx`:
-- `/` or `#/` → HomePage
-- `#/contact` → ContactPage
-- `#/services/ai-chatbots` → AIChatbotsPage
-- `#/services/ai-voice-assistants` → AIVoiceAssistantsPage
-- `#/services/workflow-automation` → WorkflowAutomationPage
-- `#/locations/:citySlug` → LocationPage (dynamic route for location-specific pages)
+The app uses **client-side routing** via `window.location.pathname` (not React Router). Routes are handled in `src/App.tsx`:
+- `/` → HomePage
+- `/contact` → ContactPage
+- `/services/ai-chatbots` → AIChatbotsPage
+- `/services/ai-voice-assistants` → AIVoiceAssistantsPage
+- `/services/workflow-automation` → WorkflowAutomationPage
+- `/locations/:citySlug` → LocationPage (dynamic route for location-specific pages)
 
-The current route is determined by `window.location.hash`. Navigation automatically scrolls to top on route change. Note: There is no dedicated Pricing page - pricing information is included on the service-specific pages.
+The current route is determined by `window.location.pathname`. Navigation automatically scrolls to top on route change. Use the global `window.navigate(path)` function for programmatic navigation (e.g., `window.navigate('/contact')`). Note: There is no dedicated Pricing page - pricing information is included on the service-specific pages.
 
 **Dynamic Location Routes:**
-Location pages use a slug-based pattern (e.g., `#/locations/london-ai-automation`). The `LocationPage` component receives the `citySlug` prop extracted from the route.
+Location pages use a slug-based pattern (e.g., `/locations/london-ai-automation`). The `LocationPage` component receives the `citySlug` prop extracted from the route.
 
 ### Component Structure
 - **Pages** (`src/pages/`): Top-level page components
@@ -93,6 +113,12 @@ VITE_SUPABASE_URL - Supabase project URL (if using Supabase)
 VITE_SUPABASE_ANON_KEY - Supabase anonymous key (if using Supabase)
 ```
 
+**Critical:** Vite environment variables with `VITE_` prefix are **read at build time**, not runtime. This means:
+- For local development: Update `.env` and restart `npm run dev`
+- For production builds: Set env vars before running `npm run build` (Vercel/Netlify handle this automatically)
+- Variables are inlined into the bundle during build, making them visible in production code (safe for public URLs like webhooks)
+- Do NOT store secrets like API keys that should remain private in `VITE_*` variables
+
 **Chatbot Behavior:**
 - Auto-opens after 5 seconds on first visit (tracked via `localStorage`)
 - Session ID generated: `session_${timestamp}_${random}`
@@ -125,7 +151,7 @@ VITE_SUPABASE_ANON_KEY - Supabase anonymous key (if using Supabase)
 
 ## Key Architectural Decisions
 
-1. **Hash-Based Routing** - Simple manual routing via `window.location.hash`. No server config needed. Simpler than React Router for this app size.
+1. **Path-Based Routing** - Manual routing via `window.location.pathname` using `window.history.pushState()`. No server config needed (relies on SPA fallback). Simpler than React Router for this app size.
 
 2. **No Backend API** - All webhook communication goes directly to n8n. Enables serverless architecture.
 
@@ -141,13 +167,24 @@ VITE_SUPABASE_ANON_KEY - Supabase anonymous key (if using Supabase)
 
 8. **TypeScript Strict Mode** - All strict checks enabled (`strict: true`, `noUnusedLocals`, `noUnusedParameters`). Errors on unused variables/parameters.
 
+9. **Code Splitting & Lazy Loading** - Pages and ChatbotWidget are lazy-loaded via React.lazy(). Reduces initial bundle size and speeds up first page load.
+
+10. **Vendor Chunk Splitting** - Separate chunks for React, icons, and voice libraries allow better caching and parallel downloads.
+
 ## Common Patterns & State Management
 
 ### Navigation & Routing
-- Use `window.location.hash = '/path'` for navigation (not HTML anchor tags unless external)
-- Hash routing automatically scrolls to top on route change (handled in `App.tsx`)
-- For programmatic navigation: `window.location.hash = '/contact'`
+- Use `window.navigate('/path')` for programmatic navigation (function defined in App.tsx)
+- Routing automatically scrolls to top on route change (handled in `App.tsx` via popstate listener)
+- Example: `window.navigate('/contact')` or `window.navigate('/services/ai-chatbots')`
 - For event-driven navigation: dispatch custom events like `new Event('openChatbot')`
+
+### Global API Functions
+The following functions are attached to `window` for global access:
+- **`window.navigate(path: string)`** - Programmatic navigation using `history.pushState()`. Use this instead of direct href changes to ensure proper routing state management and scroll-to-top behavior.
+  - Example: `window.navigate('/services/ai-chatbots')`
+  - Called from: Button click handlers, form submissions, navigation menu items
+  - Internally triggers `popstate` event which updates component state and scrolls to top
 
 ### Component Communication
 - **Custom Events**: Used for global UI triggers (e.g., `openChatbot` event from buttons)
@@ -155,16 +192,75 @@ VITE_SUPABASE_ANON_KEY - Supabase anonymous key (if using Supabase)
 - **Props**: Primary method for component data flow (pages pass `citySlug` to LocationPage, etc.)
 
 ### SEO & Meta Tags
-- All pages use `SEOHead` component to set page title, description, and JSON-LD schema
-- Organization schema defined at page level (see `HomePage.tsx` for example)
-- Schema markup includes context data relevant to each page
 
-### Webhook Communication
+**SEOHead Component** (`src/components/SEOHead.tsx`):
+All pages must use the `SEOHead` component to set metadata. It handles:
+- Page title (appears in browser tab and search results)
+- Meta description (preview text in search results)
+- Canonical URL (prevents duplicate content issues)
+- JSON-LD schema markup (helps search engines understand page content)
+
+**Usage Example:**
+```typescript
+import { SEOHead } from '../components/SEOHead';
+
+export const MyPage = () => {
+  return (
+    <>
+      <SEOHead
+        title="Page Title | Antek Automation"
+        description="Meta description that appears in search results (150-160 chars ideal)"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'LocalBusiness',
+          name: 'Antek Automation',
+          url: 'https://antekautomation.com'
+        }}
+      />
+      {/* Page content */}
+    </>
+  );
+};
+```
+
+**Important Notes:**
+- Always include brand name in title (e.g., "Page Title | Antek Automation")
+- Keep descriptions 150-160 characters for optimal search result display
+- Use LocalBusiness schema for location pages, Organization for general pages
+- Organization schema defined at page level (see `HomePage.tsx` for example)
+- Schema markup should include context data relevant to each page (services, location, testimonials, etc.)
+
+### Webhook Communication & Error Handling
 - All webhook calls use `fetch()` with POST requests
 - Requests include `timestamp: new Date().toISOString()`
 - Include `source` field to identify request origin (e.g., `"website_chatbot"`)
-- Handle errors gracefully with fallback messages shown to users
 - Session tracking: Generate unique `sessionId` format: `session_${timestamp}_${randomId}`
+
+**Error Handling Pattern** (used in ChatbotWidget.tsx and ContactPage.tsx):
+```typescript
+try {
+  const response = await fetch(webhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sessionId, message, timestamp, pageUrl, source })
+  });
+
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const data = await response.json();
+  // Use data from webhook
+} catch (error) {
+  console.error('Webhook error:', error);
+  // Show fallback UI message to user, don't expose error details
+  // Example: "Sorry, I'm having trouble connecting. Please try again."
+}
+```
+
+**Key Principles:**
+- Always wrap webhook calls in try/catch
+- Check `response.ok` for HTTP errors
+- Show user-friendly fallback messages on failure (don't expose raw errors)
+- Log errors to console for debugging, but never show to users
+- Webhook failures should never block UI or prevent form submission
 
 ## File Reference
 
@@ -191,7 +287,7 @@ VITE_SUPABASE_ANON_KEY - Supabase anonymous key (if using Supabase)
 - `src/types/index.ts` - All TypeScript interfaces: `ContactFormData`, `ChatMessage`, `ChatState`
 
 ### Configuration
-- `vite.config.ts` - Vite build config (React plugin, lucide-react HMR optimization)
+- `vite.config.ts` - Vite build config (React plugin, lucide-react HMR optimisation)
 - `tailwind.config.js` - Tailwind theme (colors, shadows, custom utilities)
 - `postcss.config.js` - PostCSS config (Tailwind and Autoprefixer)
 - `eslint.config.js` - ESLint config (v9 flat format, React Hooks rules enforced)
@@ -258,7 +354,7 @@ VITE_CHATBOT_WEBHOOK_URL=https://abc123.ngrok.io/webhook/chatbot
 
 ### Hot Module Reload (HMR) Not Working
 - Vite should auto-reload components on save. If not working, try `npm run dev` again
-- Check that lucide-react is not being dependency-optimized (it's excluded in vite.config.ts)
+- Check that lucide-react is not being dependency-optimised (it's excluded in vite.config.ts)
 - Hard refresh browser (Cmd+Shift+R on Mac)
 
 ### Type Errors After Code Changes
@@ -291,6 +387,28 @@ The project uses TypeScript project references:
 
 Run `npm run typecheck` before committing to catch type errors.
 
+## Performance Considerations
+
+### Code Splitting & Lazy Loading
+- **Initial Load**: Only HomePage, Navigation, Footer, and necessary vendor libraries load on first visit (~60KB gzipped)
+- **Lazy Loaded**: Service pages and ChatbotWidget load on-demand via `React.lazy()` when needed
+- **React.lazy() + Suspense**: Pages wrapped with lazy loading have a Suspense fallback (blank container) while chunks download. This is intentional to keep initial bundle small.
+- **ChatbotWidget**: Lazy-loads after 5 seconds via separate chunk, doesn't block initial render. Improves First Contentful Paint (FCP).
+- **Chunk Names**: App.tsx uses `.then(m => ({ default: m.ComponentName }))` pattern to extract named exports from dynamic imports
+
+**Important:** When modifying App.tsx, maintain the current lazy-loading pattern. Do not convert lazy-loaded pages to synchronous imports unless performance testing shows it's beneficial.
+
+### Bundle Optimisation
+- Lucide-react icons excluded from dependency pre-optimisation (uses native ES modules)
+- Manual vendor chunks prevent duplication and improve browser caching
+- Source maps enabled in production for debugging without exposing source
+
+### When to Optimise Further
+- Monitor Core Web Vitals using PageSpeed Insights
+- If LCP is slow, consider inlining critical CSS or preloading fonts
+- If FID/INP is high, check for long tasks in event handlers (use `setTimeout` to defer work)
+- If CLS is high, ensure images have fixed dimensions and avoid layout shifts
+
 ## Linting
 
 ESLint is configured using the v9 flat config format (`eslint.config.js`):
@@ -317,22 +435,31 @@ ESLint is configured using the v9 flat config format (`eslint.config.js`):
 
 **Vite Configuration** (`vite.config.ts`):
 - React plugin enabled for automatic JSX transform
-- Lucide-react library excluded from dependency optimization (faster HMR during development)
+- Lucide-react library excluded from dependency optimisation (faster HMR during development)
+- Manual chunk splitting configured for optimised bundle:
+  - `vendor-react`: React and React DOM
+  - `vendor-icons`: lucide-react
+  - `vendor-elevenlabs`: @elevenlabs/react
+  - Lazy-loaded pages split into separate chunks
+- Source maps enabled for production debugging
 
 **Build Process:**
 ```bash
-npm run build      # Creates optimized production build in dist/
+npm run build      # Creates optimised production build in dist/
 npm run preview    # Preview production build locally
 ```
 
 **Output:**
-- Production build: `dist/` directory (minified, optimized)
-- Includes all assets, CSS, JavaScript bundles
+- Production build: `dist/` directory (minified, optimised, with source maps)
+- Includes all assets, CSS, JavaScript chunks split by vendor/page
 
 **Deployment Ready:**
 - Static site - can be deployed to any static hosting (Vercel, Netlify, AWS S3, etc.)
 - No server-side rendering needed
-- All routing is client-side (hash-based)
+- All routing is client-side via `window.location.pathname`
+- **Critical**: Server must serve `index.html` for all routes (SPA fallback). This allows direct deep linking to routes like `/services/ai-chatbots`
+  - Vercel and Netlify auto-configure this for SPAs
+  - For other hosts, configure 404 → index.html rewrite or enable trailing slash rewrites
 - Environment variables must be set at build time or runtime via `.env` file
 
 ## TypeScript Strictness

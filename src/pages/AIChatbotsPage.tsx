@@ -92,7 +92,7 @@ export function AIChatbotsPage() {
                 Qualify Leads
               </h3>
               <p className="text-charcoal leading-normal">
-                Asks the right questions to understand customer needs, budget, and urgency so you can prioritize follow-ups that matter.
+                Asks the right questions to understand customer needs, budget, and urgency so you can prioritise follow-ups that matter.
               </p>
             </Card>
           </div>

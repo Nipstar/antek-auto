@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useConversation } from '@elevenlabs/react';
 import { X, Mic, Phone } from 'lucide-react';
+import { CONSTANTS } from '../constants';
 
 interface VoiceChatProps {
   isOpen: boolean;
@@ -9,7 +10,7 @@ interface VoiceChatProps {
 
 export function VoiceChat({ isOpen, onClose }: VoiceChatProps) {
   const { status, isSpeaking, startSession, endSession } = useConversation({
-    agentId: 'agent_0701k72hgm7se1gvm1db45vg23r1',
+    agentId: CONSTANTS.ELEVENLABS_AGENT_ID,
   });
 
   const [displayStatus, setDisplayStatus] = useState<'idle' | 'connecting' | 'connected' | 'speaking' | 'listening' | 'error'>(
@@ -26,7 +27,7 @@ export function VoiceChat({ isOpen, onClose }: VoiceChatProps) {
       // Auto-start conversation when modal opens
       if (status === 'disconnected') {
         startSession({
-          agentId: 'agent_0701k72hgm7se1gvm1db45vg23r1',
+          agentId: CONSTANTS.ELEVENLABS_AGENT_ID,
           connectionType: 'websocket',
         });
       }

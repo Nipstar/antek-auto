@@ -1,7 +1,10 @@
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
+
+const VoiceChat = lazy(() => import('../components/VoiceChat').then(m => ({ default: m.VoiceChat })));
 
 const navigate = (path: string) => {
   window.history.pushState(null, '', path);
@@ -9,6 +12,17 @@ const navigate = (path: string) => {
 };
 
 export function HomePage() {
+  const [isVoiceChatOpen, setIsVoiceChatOpen] = useState(false);
+
+  useEffect(() => {
+    const handleOpenVoiceChat = () => {
+      setIsVoiceChatOpen(true);
+    };
+
+    window.addEventListener('openVoiceChat', handleOpenVoiceChat);
+    return () => window.removeEventListener('openVoiceChat', handleOpenVoiceChat);
+  }, []);
+
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -50,7 +64,7 @@ export function HomePage() {
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button variant="primary" onClick={() => navigate('/contact')}>Get Started Free</Button>
-                <Button variant="secondary" onClick={() => window.dispatchEvent(new Event('openChatbot'))}>See How It Works</Button>
+                <Button variant="secondary" onClick={() => setIsVoiceChatOpen(true)}>See How It Works</Button>
               </div>
             </div>
             <div className="relative">
@@ -76,55 +90,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 md:py-28" id="services">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
-              Our Services
-            </h2>
-            <p className="text-lg text-charcoal max-w-2xl mx-auto leading-normal">
-              Three powerful solutions to transform how you serve customers
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card hover>
-              <Icon letter="C" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                AI Chatbots
-              </h3>
-              <p className="text-charcoal leading-normal mb-6">
-                Website chat that qualifies leads, answers FAQs, and books appointments instantly while you focus on delivering service.
-              </p>
-              <Button variant="primary" className="w-full" onClick={() => navigate('/services/ai-chatbots')}>Learn More</Button>
-            </Card>
-
-            <Card hover>
-              <Icon letter="V" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Voice AI
-              </h3>
-              <p className="text-charcoal leading-normal mb-6">
-                Phone agents that answer calls, take bookings, and handle customer questions with natural conversation 24/7.
-              </p>
-              <Button variant="primary" className="w-full" onClick={() => navigate('/services/ai-voice-assistants')}>Learn More</Button>
-            </Card>
-
-            <Card hover>
-              <Icon letter="A" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Automation
-              </h3>
-              <p className="text-charcoal leading-normal mb-6">
-                Connect your tools and eliminate repetitive tasks. From scheduling to invoicing, let AI handle the busywork.
-              </p>
-              <Button variant="primary" className="w-full" onClick={() => navigate('/services/workflow-automation')}>Learn More</Button>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-peach border-y-3 border-charcoal py-20 md:py-28">
+      <section className="bg-muted-taupe border-b-3 border-charcoal py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
             <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
@@ -195,6 +161,54 @@ export function HomePage() {
                   </p>
                 </div>
               </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 md:py-28" id="services">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="text-center mb-16">
+            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
+              Our Services
+            </h2>
+            <p className="text-lg text-charcoal max-w-2xl mx-auto leading-normal">
+              Three powerful solutions to transform how you serve customers
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card hover>
+              <Icon letter="C" size="lg" />
+              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
+                AI Chatbots
+              </h3>
+              <p className="text-charcoal leading-normal mb-6">
+                Website chat that qualifies leads, answers FAQs, and books appointments instantly while you focus on delivering service.
+              </p>
+              <Button variant="primary" className="w-full" onClick={() => navigate('/services/ai-chatbots')}>Learn More</Button>
+            </Card>
+
+            <Card hover>
+              <Icon letter="V" size="lg" />
+              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
+                Voice AI
+              </h3>
+              <p className="text-charcoal leading-normal mb-6">
+                Phone agents that answer calls, take bookings, and handle customer questions with natural conversation 24/7.
+              </p>
+              <Button variant="primary" className="w-full" onClick={() => navigate('/services/ai-voice-assistants')}>Learn More</Button>
+            </Card>
+
+            <Card hover>
+              <Icon letter="A" size="lg" />
+              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
+                Automation
+              </h3>
+              <p className="text-charcoal leading-normal mb-6">
+                Connect your tools and eliminate repetitive tasks. From scheduling to invoicing, let AI handle the busywork.
+              </p>
+              <Button variant="primary" className="w-full" onClick={() => navigate('/services/workflow-automation')}>Learn More</Button>
             </Card>
           </div>
         </div>
@@ -316,6 +330,12 @@ export function HomePage() {
           </Button>
         </div>
       </section>
+
+      {isVoiceChatOpen && (
+        <Suspense fallback={null}>
+          <VoiceChat isOpen={isVoiceChatOpen} onClose={() => setIsVoiceChatOpen(false)} />
+        </Suspense>
+      )}
     </div>
   );
 }

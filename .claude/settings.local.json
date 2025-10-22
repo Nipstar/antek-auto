@@ -13,7 +13,16 @@
       "Bash(find:*)",
       "Bash(git checkout -- src/pages/*.tsx)",
       "Bash(cd /Users/andrewnorman/Library/Mobile\\ Documents/com~apple~CloudDocs/Code\\ Projects/Bolt/antek-bolt && git checkout:*)",
-      "Bash(cd /Users/andrewnorman/Library/Mobile Documents/com~apple~CloudDocs/Code Projects/Bolt/antek-bolt && npm run lint:*)"
+      "Bash(cd /Users/andrewnorman/Library/Mobile Documents/com~apple~CloudDocs/Code Projects/Bolt/antek-bolt && npm run lint:*)",
+      "Bash(npx vercel --prod)",
+      "Bash(cd /Users/andrewnorman/Library/Mobile\\ Documents/com~apple~CloudDocs/Code\\ Projects/Bolt/antek-bolt:*)",
+      "Bash(curl:*)",
+      "Read(//private/tmp/**)",
+      "Bash(npm install)",
+      "Bash(cat:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

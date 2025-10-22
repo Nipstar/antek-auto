@@ -15,3 +15,6 @@ Disallow: /
 
 User-agent: Claude-Web
 Disallow: /
+
+# Sitemap reference for search engines
+Sitemap: https://antekautomation.com/sitemap.xml

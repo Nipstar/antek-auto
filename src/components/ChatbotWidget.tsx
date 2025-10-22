@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Send } from 'lucide-react';
 import { ChatMessage } from '../types';
+import { CONSTANTS } from '../constants';
 
 const CHATBOT_WEBHOOK_URL = import.meta.env.VITE_CHATBOT_WEBHOOK_URL || '';
 
@@ -9,30 +10,30 @@ export function ChatbotWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  const [sessionId] = useState(() => `${CONSTANTS.SESSION_ID_PREFIX}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const [hasAutoOpened, setHasAutoOpened] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const hasVisited = localStorage.getItem('chatbot_visited');
+    const hasVisited = localStorage.getItem(CONSTANTS.CHATBOT_VISITED_KEY);
     if (!hasVisited && !hasAutoOpened) {
       const timer = setTimeout(() => {
         setIsOpen(true);
         setHasAutoOpened(true);
-        localStorage.setItem('chatbot_visited', 'true');
+        localStorage.setItem(CONSTANTS.CHATBOT_VISITED_KEY, 'true');
 
         const welcomeMessage: ChatMessage = {
           id: `msg_${Date.now()}`,
           sessionId,
-          message: "Hello! I'm Antek AI. How can I help you automate your business today?",
+          message: CONSTANTS.CHATBOT_WELCOME_MESSAGE,
           timestamp: new Date().toISOString(),
           pageUrl: window.location.href,
-          source: 'website_chatbot',
+          source: CONSTANTS.WEBHOOK_SOURCE_CHATBOT,
           isBot: true,
         };
         setMessages([welcomeMessage]);
-      }, 5000);
+      }, CONSTANTS.CHATBOT_AUTO_OPEN_DELAY_MS);
 
       return () => clearTimeout(timer);
     }
@@ -46,10 +47,10 @@ export function ChatbotWidget() {
         const welcomeMessage: ChatMessage = {
           id: `msg_${Date.now()}`,
           sessionId,
-          message: "Hello! I'm Antek AI. How can I help you automate your business today?",
+          message: CONSTANTS.CHATBOT_WELCOME_MESSAGE,
           timestamp: new Date().toISOString(),
           pageUrl: window.location.href,
-          source: 'website_chatbot',
+          source: CONSTANTS.WEBHOOK_SOURCE_CHATBOT,
           isBot: true,
         };
         setMessages([welcomeMessage]);
@@ -80,7 +81,7 @@ export function ChatbotWidget() {
       message: inputMessage,
       timestamp: new Date().toISOString(),
       pageUrl: window.location.href,
-      source: 'website_chatbot',
+      source: CONSTANTS.WEBHOOK_SOURCE_CHATBOT,
       isBot: false,
     };
 
@@ -90,15 +91,6 @@ export function ChatbotWidget() {
 
     try {
       if (CHATBOT_WEBHOOK_URL) {
-        console.log('Sending to webhook:', CHATBOT_WEBHOOK_URL);
-        console.log('Payload:', {
-          sessionId: userMessage.sessionId,
-          message: userMessage.message,
-          timestamp: userMessage.timestamp,
-          pageUrl: userMessage.pageUrl,
-          source: userMessage.source,
-        });
-
         const response = await fetch(CHATBOT_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -111,26 +103,18 @@ export function ChatbotWidget() {
           }),
         });
 
-        console.log('Response status:', response.status);
-        console.log('Response ok:', response.ok);
-
         if (response.ok) {
           const responseText = await response.text();
-          console.log('Raw response text:', responseText);
 
           let data;
           try {
             data = JSON.parse(responseText);
-            console.log('Parsed response data:', data);
 
             // Handle array response format from n8n
             if (Array.isArray(data) && data.length > 0) {
               data = data[0];
-              console.log('Extracted first item from array:', data);
             }
-          } catch (parseError) {
-            console.error('JSON parse error:', parseError);
-            console.log('Response was not valid JSON, using as plain text');
+          } catch {
             data = { output: responseText };
           }
 
@@ -140,36 +124,33 @@ export function ChatbotWidget() {
             message: data.output || data.reply || "Thanks for your message! We'll get back to you shortly.",
             timestamp: new Date().toISOString(),
             pageUrl: window.location.href,
-            source: 'website_chatbot',
+            source: CONSTANTS.WEBHOOK_SOURCE_CHATBOT,
             isBot: true,
           };
           setMessages((prev) => [...prev, botReply]);
         } else {
-          console.error('Webhook failed with status:', response.status);
           throw new Error('Webhook failed');
         }
       } else {
-        console.log('No webhook URL configured');
         const botReply: ChatMessage = {
           id: `msg_${Date.now()}`,
           sessionId,
-          message: "Thanks for reaching out! Our team will respond soon. You can also email us at hello@antekautomation.com",
+          message: `Thanks for reaching out! Our team will respond soon. You can also email us at ${CONSTANTS.CONTACT_EMAIL}`,
           timestamp: new Date().toISOString(),
           pageUrl: window.location.href,
-          source: 'website_chatbot',
+          source: CONSTANTS.WEBHOOK_SOURCE_CHATBOT,
           isBot: true,
         };
         setMessages((prev) => [...prev, botReply]);
       }
-    } catch (error) {
-      console.error('Chatbot error:', error);
+    } catch {
       const errorMessage: ChatMessage = {
         id: `msg_${Date.now()}`,
         sessionId,
-        message: "Connection error. Please try again or email us at hello@antekautomation.com",
+        message: `Connection error. Please try again or email us at ${CONSTANTS.CONTACT_EMAIL}`,
         timestamp: new Date().toISOString(),
         pageUrl: window.location.href,
-        source: 'website_chatbot',
+        source: CONSTANTS.WEBHOOK_SOURCE_CHATBOT,
         isBot: true,
       };
       setMessages((prev) => [...prev, errorMessage]);

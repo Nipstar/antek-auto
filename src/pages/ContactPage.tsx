@@ -3,6 +3,7 @@ import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { ContactFormData } from '../types';
 import { SEOHead } from '../components/SEOHead';
+import { CONSTANTS } from '../constants';
 
 const CONTACT_WEBHOOK_URL = import.meta.env.VITE_CONTACT_WEBHOOK_URL || '';
 
@@ -46,14 +47,11 @@ export function ContactPage() {
     const payload: ContactFormData = {
       ...formData,
       timestamp: new Date().toISOString(),
-      source: 'website_contact_form',
+      source: CONSTANTS.WEBHOOK_SOURCE_CONTACT_FORM,
     };
 
     try {
       if (CONTACT_WEBHOOK_URL) {
-        console.log('Sending to webhook:', CONTACT_WEBHOOK_URL);
-        console.log('Payload:', payload);
-
         const response = await fetch(CONTACT_WEBHOOK_URL, {
           method: 'POST',
           mode: 'cors',
@@ -62,8 +60,6 @@ export function ContactPage() {
           },
           body: JSON.stringify(payload),
         });
-
-        console.log('Response status:', response.status);
 
         if (response.ok) {
           setSubmitStatus({
@@ -82,14 +78,12 @@ export function ContactPage() {
             preferredContact: 'either',
           });
         } else {
-          const errorText = await response.text();
-          console.error('Webhook error:', response.status, errorText);
-          throw new Error(`Webhook failed with status ${response.status}`);
+          throw new Error('Webhook failed');
         }
       } else {
         setSubmitStatus({
           type: 'success',
-          message: "Thank you! We'll contact you within 2 hours. You can also reach us directly at hello@antekautomation.com",
+          message: `Thank you! We'll contact you within 2 hours. You can also reach us directly at ${CONSTANTS.CONTACT_EMAIL}`,
         });
         setFormData({
           name: '',
@@ -103,11 +97,10 @@ export function ContactPage() {
           preferredContact: 'either',
         });
       }
-    } catch (error) {
-      console.error('Form submission error:', error);
+    } catch {
       setSubmitStatus({
         type: 'error',
-        message: 'Something went wrong. Please email us directly at hello@antekautomation.com',
+        message: `Something went wrong. Please email us directly at ${CONSTANTS.CONTACT_EMAIL}`,
       });
     } finally {
       setIsSubmitting(false);
@@ -135,7 +128,7 @@ export function ContactPage() {
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <Card>
             <h3 className="font-black text-xl uppercase text-charcoal mb-2">Email</h3>
-            <p className="text-charcoal">hello@antekautomation.com</p>
+            <p className="text-charcoal">{CONSTANTS.CONTACT_EMAIL}</p>
           </Card>
           <Card>
             <h3 className="font-black text-xl uppercase text-charcoal mb-2">Phone</h3>
