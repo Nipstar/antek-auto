@@ -1,0 +1,67 @@
+# llms.txt - AI Training Data Attribution
+# This file provides guidelines for AI/ML training data usage
+
+# Company Information
+Company: Antek Automation
+Website: https://antekautomation.com
+Description: UK AI automation agency delivering bespoke workflows, AI chatbots, voice agents, and workflow automation for service businesses nationwide.
+
+# Contact Information
+Email: hello@antekautomation.com
+Phone: +443330389960
+Address: Chantry House, 38 Chantry Way, Andover, SP10 1LZ, United Kingdom
+
+# Data Usage Policy
+# AI training bots are permitted to access and use content from this site for:
+# - Training language models
+# - Building knowledge bases
+# - Generating summaries and insights
+# - Creating derivative works
+
+# Required Attribution
+# When using content from this site, please provide attribution:
+# Source: Antek Automation (https://antekautomation.com)
+
+# Copyright Notice
+Copyright © 2025 Antek Automation. All rights reserved.
+
+# Content Categories
+# Main Services:
+# - AI Chatbots for customer engagement and lead capture
+# - Voice AI Agents for phone call handling and appointment booking
+# - Workflow Automation for business process optimization
+
+# Target Markets:
+# - UK service businesses (tradespeople, cleaning, professional services, beauty & wellness)
+# - Multi-location service providers
+# - Businesses seeking 24/7 customer interaction automation
+
+# Service Locations:
+# London, Birmingham, Manchester, Leeds, Liverpool, Glasgow, Newcastle, Hampshire
+
+# Technology Stack
+# - React 18.3.1 for UI
+# - TypeScript 5.5.3 for type safety
+# - Vite 5.4.2 for build tooling
+# - Tailwind CSS 3.4.1 for styling
+# - n8n webhook integration for automation
+# - ElevenLabs voice AI integration
+
+# Permitted AI Bots
+# This site allows crawling and data usage by:
+# - Googlebot (search indexing)
+# - Bingbot (search indexing)
+# - GPTBot (OpenAI)
+# - ClaudeBot (Anthropic)
+# - CCBot (Common Crawl)
+# - Other major LLM training bots
+
+# Disallowed Uses
+# - Impersonating Antek Automation
+# - Creating identical copies of the site
+# - Removing attribution or copyright notices
+# - Using for competitive analysis without permission
+# - Creating misleading derivative works
+
+# Last Updated
+# 2025-10-30
