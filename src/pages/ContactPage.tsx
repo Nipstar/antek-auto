@@ -111,7 +111,7 @@ export function ContactPage() {
     <div className="bg-off-white py-20 md:py-28">
       <SEOHead
         title="Contact Antek Automation | AI Automation Agency UK"
-        description="Contact Antek Automation: UK AI automation agency delivering bespoke workflows that streamline operations, cut costs & boost ROI for businesses nationwide."
+        description="Talk to us about AI automation | Capture every customer call 24/7 | Expert setup & support for UK service businesses | Free consultation"
         path="/contact"
         breadcrumbs={breadcrumbs}
       />
@@ -128,15 +128,21 @@ export function ContactPage() {
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <Card>
             <h3 className="font-black text-xl uppercase text-charcoal mb-2">Email</h3>
-            <p className="text-charcoal">{CONSTANTS.CONTACT_EMAIL}</p>
+            <p className="text-charcoal"><a href={`mailto:${CONSTANTS.CONTACT_EMAIL}`} className="hover:text-terracotta transition-colors font-bold">{CONSTANTS.CONTACT_EMAIL}</a></p>
           </Card>
           <Card>
             <h3 className="font-black text-xl uppercase text-charcoal mb-2">Phone</h3>
-            <p className="text-charcoal">0333 335 7920</p>
+            <p className="text-charcoal"><a href="tel:03330389960" className="hover:text-terracotta transition-colors font-bold">03330 389960</a></p>
           </Card>
           <Card>
             <h3 className="font-black text-xl uppercase text-charcoal mb-2">Location</h3>
-            <p className="text-charcoal">Hampshire, United Kingdom</p>
+            <p className="text-charcoal">
+              <a href="https://maps.google.com/?q=Chantry+House,+38+Chantry+Way,+Andover,+SP10+1LZ" target="_blank" rel="noopener noreferrer" className="hover:text-terracotta transition-colors font-bold">
+                Chantry House<br />
+                38 Chantry Way<br />
+                Andover, SP10 1LZ
+              </a>
+            </p>
           </Card>
         </div>
 

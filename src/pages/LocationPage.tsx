@@ -42,20 +42,28 @@ export function LocationPage({ citySlug }: LocationPageProps) {
 
   const localBusinessSchema = {
     '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
+    '@type': 'LocalBusiness',
+    '@id': `https://antekautomation.com/locations/${city.slug}`,
     name: `Antek Automation - ${city.name}`,
     description: city.metaDescription,
+    telephone: '+443330389960',
+    email: 'hello@antekautomation.com',
     areaServed: {
       '@type': 'City',
       name: city.name,
     },
     serviceType: ['AI Voice Agents', 'AI Chatbots', 'Workflow Automation'],
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: city.name,
-      addressRegion: city.region,
-      addressCountry: 'GB',
-    },
+    ...(city.slug === 'hampshire' && {
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Chantry House, 38 Chantry Way',
+        addressLocality: 'Andover',
+        postalCode: 'SP10 1LZ',
+        addressRegion: 'Hampshire',
+        addressCountry: 'GB',
+      },
+    }),
+    priceRange: '£500+',
   };
 
   return (

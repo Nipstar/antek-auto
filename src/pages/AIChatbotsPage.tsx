@@ -19,7 +19,7 @@ export function AIChatbotsPage() {
     <div className="bg-off-white">
       <SEOHead
         title="AI Chatbots | Antek Automation | AI Automation Agency UK"
-        description="AI Chatbots by Antek Automation: Capture leads 24/7, answer FAQs & book appointments. Streamline operations for UK businesses nationwide."
+        description="AI chatbots that capture leads 24/7 | Answer FAQs & book appointments automatically | Never miss a customer inquiry again | UK service businesses"
         path="/services/ai-chatbots"
         breadcrumbs={breadcrumbs}
       />

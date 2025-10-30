@@ -77,13 +77,17 @@ export function Footer() {
             <h4 className="font-black uppercase text-off-white mb-4">Contact</h4>
             <ul className="space-y-3">
               <li className="text-off-white">
-                Email: {CONSTANTS.CONTACT_EMAIL}
+                Email: <a href={`mailto:${CONSTANTS.CONTACT_EMAIL}`} className="hover:text-terracotta transition-colors">{CONSTANTS.CONTACT_EMAIL}</a>
               </li>
               <li className="text-off-white">
-                Phone: 0333 335 7920
+                Phone: <a href="tel:03330389960" className="hover:text-terracotta transition-colors">03330 389960</a>
               </li>
               <li className="text-off-white">
-                Hampshire, United Kingdom
+                <a href="https://maps.google.com/?q=Chantry+House,+38+Chantry+Way,+Andover,+SP10+1LZ" target="_blank" rel="noopener noreferrer" className="hover:text-terracotta transition-colors">
+                  Chantry House<br />
+                  38 Chantry Way<br />
+                  Andover, SP10 1LZ
+                </a>
               </li>
             </ul>
           </div>

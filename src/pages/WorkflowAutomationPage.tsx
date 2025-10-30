@@ -19,7 +19,7 @@ export function WorkflowAutomationPage() {
     <div className="bg-off-white">
       <SEOHead
         title="Workflow Automation | Antek Automation | AI Automation Agency UK"
-        description="Workflow Automation by Antek Automation: Bespoke workflows that streamline operations, cut costs & boost ROI for UK businesses nationwide."
+        description="Automate repetitive tasks & eliminate manual work | Connect your business tools | Save hours every week | Transform operations for UK service businesses"
         path="/services/workflow-automation"
         breadcrumbs={breadcrumbs}
       />

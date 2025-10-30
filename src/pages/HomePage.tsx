@@ -23,31 +23,41 @@ export function HomePage() {
     return () => window.removeEventListener('openVoiceChat', handleOpenVoiceChat);
   }, []);
 
-  const organizationSchema = {
+  const organisationSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': 'LocalBusiness',
+    '@id': 'https://antekautomation.com',
     name: 'Antek Automation',
+    alternateName: 'Antek',
     description: 'UK AI automation agency delivering bespoke workflows that streamline operations, cut costs & boost ROI for businesses nationwide.',
     url: 'https://antekautomation.com',
     logo: 'https://antekautomation.com/logo.svg',
+    image: 'https://antekautomation.com/logo.svg',
+    telephone: '+443330389960',
+    email: 'hello@antekautomation.com',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Chantry House, 38 Chantry Way',
+      addressLocality: 'Andover',
+      postalCode: 'SP10 1LZ',
+      addressCountry: 'GB',
+    },
     areaServed: {
       '@type': 'Country',
       name: 'United Kingdom',
     },
+    priceRange: '£500+',
     serviceType: ['AI Chatbots', 'Voice AI Assistants', 'Workflow Automation'],
-    address: {
-      '@type': 'PostalAddress',
-      addressCountry: 'GB',
-    },
+    knowsAbout: ['AI Automation', 'Chatbots', 'Voice Agents', 'Workflow Automation', 'Service Businesses'],
   };
 
   return (
     <div className="bg-off-white">
       <SEOHead
         title="Antek Automation | AI Automation Agency UK"
-        description="Antek Automation: UK AI automation agency delivering bespoke workflows that streamline operations, cut costs & boost ROI for businesses nationwide."
+        description="Losing customers to missed calls? | AI voice assistants & chatbots capture every lead 24/7 | UK automation agency for service businesses"
         path="/"
-        schema={organizationSchema}
+        schema={organisationSchema}
       />
       <section className="bg-warm-beige border-b-3 border-charcoal">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-28">
