@@ -2,6 +2,7 @@ import { useState, useEffect, Suspense, lazy } from 'react';
 import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
+import { trackPageView } from './utils/analytics';
 
 // Lazy load chatbot widget (non-critical for initial load, loads after 5s anyway)
 const ChatbotWidget = lazy(() => import('./components/ChatbotWidget').then(m => ({ default: m.ChatbotWidget })));
@@ -29,8 +30,13 @@ function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');
 
   useEffect(() => {
+    // Track initial page view
+    trackPageView(window.location.pathname || '/');
+
     const handlePopState = () => {
-      setCurrentPath(window.location.pathname || '/');
+      const newPath = window.location.pathname || '/';
+      setCurrentPath(newPath);
+      trackPageView(newPath); // Track page view in Google Analytics
       window.scrollTo(0, 0); // Scroll to top on route change
     };
 
