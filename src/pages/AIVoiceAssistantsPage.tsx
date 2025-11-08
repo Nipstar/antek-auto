@@ -37,7 +37,7 @@ export function AIVoiceAssistantsPage() {
               AI VOICE AGENTS | NEVER MISS CALLS | UK SERVICE BUSINESSES
             </p>
             <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-              AI Voice Agents
+              AI Voice Agents | Antek Automation
             </h1>
             <p className="text-lg text-charcoal leading-normal mb-8">
               Stop dropping tools mid-job to answer the phone. Our intelligent assistants handle incoming calls 24/7, answer questions, take bookings, and route urgent matters to you—all with natural, human-like conversation.

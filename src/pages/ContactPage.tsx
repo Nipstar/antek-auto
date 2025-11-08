@@ -18,7 +18,6 @@ export function ContactPage() {
     phone: '',
     email: '',
     serviceType: '',
-    budget: '',
     interests: [] as string[],
     message: '',
     preferredContact: 'either' as 'phone' | 'email' | 'either',
@@ -72,7 +71,6 @@ export function ContactPage() {
             phone: '',
             email: '',
             serviceType: '',
-            budget: '',
             interests: [],
             message: '',
             preferredContact: 'either',
@@ -91,7 +89,6 @@ export function ContactPage() {
           phone: '',
           email: '',
           serviceType: '',
-          budget: '',
           interests: [],
           message: '',
           preferredContact: 'either',
@@ -207,43 +204,18 @@ export function ContactPage() {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <label className="font-black text-charcoal mb-2 block uppercase text-sm">
-                  Service Type
-                </label>
-                <select
-                  value={formData.serviceType}
-                  onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                  className="w-full border-3 border-charcoal bg-white px-4 py-3 focus:border-terracotta focus:outline-none text-charcoal"
-                >
-                  <option value="">Select your industry</option>
-                  <option value="trades">Tradespeople</option>
-                  <option value="cleaning">Cleaning Services</option>
-                  <option value="professional">Professional Services</option>
-                  <option value="beauty">Beauty & Wellness</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="font-black text-charcoal mb-2 block uppercase text-sm">
-                  Budget Range
-                </label>
-                <select
-                  value={formData.budget}
-                  onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                  className="w-full border-3 border-charcoal bg-white px-4 py-3 focus:border-terracotta focus:outline-none text-charcoal"
-                >
-                  <option value="">Select your budget</option>
-                  <option value="500-999">£500 - £999</option>
-                  <option value="1000-1999">£1,000 - £1,999</option>
-                  <option value="2000-3999">£2,000 - £3,999</option>
-                  <option value="4000-7999">£4,000 - £7,999</option>
-                  <option value="8000+">£8,000+</option>
-                  <option value="not_sure">Not Sure</option>
-                </select>
-              </div>
+            <div>
+              <label className="font-black text-charcoal mb-2 block uppercase text-sm">
+                Service Type *
+              </label>
+              <input
+                type="text"
+                required
+                value={formData.serviceType}
+                onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
+                className="w-full border-3 border-charcoal bg-white px-4 py-3 focus:border-terracotta focus:outline-none text-charcoal"
+                placeholder="e.g. Plumbing, Cleaning, Consulting"
+              />
             </div>
 
             <div>
@@ -324,7 +296,7 @@ export function ContactPage() {
               type="submit"
               variant="primary"
               className="w-full text-lg"
-              disabled={isSubmitting || formData.interests.length === 0}
+              disabled={isSubmitting || formData.interests.length === 0 || !formData.serviceType.trim()}
             >
               {isSubmitting ? 'Sending...' : 'Send Enquiry'}
             </Button>

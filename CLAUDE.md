@@ -28,9 +28,27 @@ npm run build
 npm run preview
 ```
 
+### Environment Setup
+
+Before running the development server, create a `.env` file from `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+Then update the webhook URLs:
+```
+VITE_CONTACT_WEBHOOK_URL=https://your-n8n-url.com/webhook/contact
+VITE_CHATBOT_WEBHOOK_URL=https://your-n8n-url.com/webhook/chatbot
+```
+
+For local development with n8n, use ngrok to expose your local instance (see "Local Testing with n8n" section).
+
+**Important:** Vite env vars with `VITE_` prefix are read at **build time**, not runtime. Restart `npm run dev` after changing `.env`.
+
 ### Pre-Commit Checklist
 
-Before committing code, always run these commands to ensure code quality:
+Before committing code, always run these commands in order:
 
 ```bash
 # 1. Run type checker (catches TypeScript errors)
@@ -39,18 +57,31 @@ npm run typecheck
 # 2. Run linter (catches style issues and React hook violations)
 npm run lint
 
-# 3. Verify no unused imports/variables (caught by both above commands in strict mode)
+# 3. Build to verify production bundling works
+npm run build
 ```
 
 **Why This Matters:**
 - TypeScript strict mode (`noUnusedLocals: true`, `noUnusedParameters: true`) enforces clean code
 - React Hooks rules catch common bugs (hooks only at top level, dependency arrays, etc.)
 - Linting ensures code consistency across the team
+- Build verification catches tree-shaking and bundling issues early
 - **Failing these checks will block your commits** if you have pre-commit hooks configured
+
+### Quick Reference
+
+| Task | Command |
+|------|---------|
+| Start dev server | `npm run dev` |
+| Check types | `npm run typecheck` |
+| Fix lint issues | `npm run lint` |
+| Build production | `npm run build` |
+| Preview build | `npm run preview` |
 
 ## Architecture
 
 ### Routing
+
 The app uses **client-side routing** via `window.location.pathname` (not React Router). Routes are handled in `src/App.tsx`:
 - `/` → HomePage
 - `/contact` → ContactPage
@@ -60,6 +91,11 @@ The app uses **client-side routing** via `window.location.pathname` (not React R
 - `/locations/:citySlug` → LocationPage (dynamic route for location-specific pages)
 
 The current route is determined by `window.location.pathname`. Navigation automatically scrolls to top on route change. Use the global `window.navigate(path)` function for programmatic navigation (e.g., `window.navigate('/contact')`). Note: There is no dedicated Pricing page - pricing information is included on the service-specific pages.
+
+**URL Format:**
+- **Development & Preview**: URLs appear as `http://localhost:5173/` or `http://localhost:4173/` (clean paths)
+- **Production**: Deployed sites may use `https://antekautomation.com/` or `https://antekautomation.com/#/` depending on server config
+- The browser address bar always shows the actual path (no hash needed for routing to work)
 
 **Dynamic Location Routes:**
 Location pages use a slug-based pattern (e.g., `/locations/london-ai-automation`). The `LocationPage` component receives the `citySlug` prop extracted from the route.
@@ -296,6 +332,55 @@ try {
 
 ## Working with the Codebase
 
+### Understanding Code Splitting & Lazy Loading
+
+**Important Pattern**: Pages are lazy-loaded to keep the initial bundle small (~60KB gzipped). This affects how components are imported:
+
+```typescript
+// ✅ Pages are lazy-loaded (only imported when route is visited)
+const HomePage = lazy(() => import('./pages/HomePage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const AIChatbotsPage = lazy(() => import('./pages/AIChatbotsPage'));
+
+// ✅ Utilities are eagerly imported (available everywhere)
+import { SEOHead } from './components/SEOHead';
+import { Navigation } from './components/Navigation';
+```
+
+**When adding a new page:**
+1. Create component in `src/pages/NewPage.tsx`
+2. In `App.tsx`, use lazy loading: `const NewPage = lazy(() => import('./pages/NewPage'));`
+3. Add route case and wrap in `<Suspense>` with fallback (see HomePage pattern)
+4. Do NOT convert existing lazy-loaded pages to synchronous imports
+
+**Performance Impact:**
+- First page load (~5 seconds): Only HomePage, Navigation, Footer load
+- Route change: Relevant page chunk downloads and renders (might have brief loading state)
+- This trade-off improves First Contentful Paint (FCP) for initial page load
+
+### Git & Commit Workflow
+
+This project may have pre-commit hooks that enforce quality checks. When committing:
+
+```bash
+# 1. Make your changes
+git add src/...
+
+# 2. Run checks (these must pass before committing)
+npm run typecheck
+npm run lint
+npm run build
+
+# 3. If checks fail, fix issues and try again
+# 4. Commit when all checks pass
+git commit -m "Description of changes"
+```
+
+If you encounter git errors after running checks:
+- Pre-commit hooks might modify files (don't worry, this is normal)
+- Re-run `git status` and verify changes are correct
+- Re-add modified files and commit again
+
 ### Design Changes
 - Maintain 3px borders (`border-3`) and hard box shadows (`shadow-brutal*`)
 - Use `uppercase` class for headings and buttons
@@ -350,33 +435,84 @@ VITE_CONTACT_WEBHOOK_URL=https://abc123.ngrok.io/webhook/contact
 VITE_CHATBOT_WEBHOOK_URL=https://abc123.ngrok.io/webhook/chatbot
 ```
 
-## Common Development Tasks
+## Debugging & Troubleshooting
 
 ### Hot Module Reload (HMR) Not Working
 - Vite should auto-reload components on save. If not working, try `npm run dev` again
 - Check that lucide-react is not being dependency-optimised (it's excluded in vite.config.ts)
 - Hard refresh browser (Cmd+Shift+R on Mac)
+- Check console for errors that might block HMR (TypeScript errors, import failures)
 
 ### Type Errors After Code Changes
 - Run `npm run typecheck` to catch all type errors before committing
 - Common issues: unused imports, missing types, prop mismatches
 - Check `tsconfig.app.json` for strict mode settings
+- Unused variables/parameters are errors, not warnings - remove or prefix with `_` (e.g., `_unused`)
 
 ### Styling Issues with Tailwind
 - After adding new custom colors/shadows to `tailwind.config.js`, restart dev server
 - Verify class names follow Tailwind syntax (no spaces in compound classes)
 - Check that CSS layers are imported in `src/index.css` in correct order
+- Use browser DevTools to inspect computed styles - Tailwind classes should appear in `<style>` tags
 
 ### Webhook Testing
 - Use `curl` or Postman to test webhook URLs locally
 - Check browser DevTools Network tab to see actual request/response
 - Verify environment variables are loaded: `VITE_*` vars are read at build time
-- For local testing, use ngrok and restart dev server after updating URLs
+- For local testing, use ngrok and **restart dev server** after updating URLs (env vars are baked in at startup)
+- Common webhook errors:
+  - `CORS` - webhook URL is cross-origin (n8n should have CORS enabled)
+  - `TypeError: fetch failed` - webhook URL unreachable (verify ngrok tunnel is running)
+  - `HTTP 404` - webhook path doesn't exist on n8n instance
 
 ### Linting Issues
 - Run `npm run lint` to see all ESLint violations
 - React Hooks rules are enforced - ensure hooks called at top level in components
 - Unused imports/variables will cause errors in strict mode
+- Fix most issues automatically: `npx eslint . --fix`
+
+### Router Issues
+- **Route not working**: Check `src/App.tsx` for the route case in the switch statement
+- **Page not rendering**: Ensure page component is imported (or lazy-loaded) and routes are in correct path format
+- **Scroll to top not working**: Verify popstate listener is attached in App.tsx
+- **Old route still showing**: Hard refresh (Cmd+Shift+R) to clear browser cache
+
+### Component State Issues
+- **Props not updating**: Check that props are declared in component signature (not destructured from `children`)
+- **Hooks running multiple times**: Verify dependency arrays are correct (`useEffect`, `useCallback`, etc.)
+- **localStorage not working**: Check browser privacy settings (might be blocked in incognito mode)
+
+### Build Issues
+- **Build fails**: Check console output for specific errors (often missing types, import errors)
+- **Bundle too large**: Check `dist/` for `.map` files (source maps are normal in production for debugging)
+- **Assets missing**: Verify all imports use correct relative paths (e.g., `../components/Button`)
+- **Code splitting not working**: Check Vite config - manual chunks might be conflicting with lazy loading
+
+### Common Patterns in Console
+
+```typescript
+// Debugging the current route
+console.log(window.location.pathname);
+
+// Testing navigation
+window.navigate('/contact');
+
+// Checking if localStorage is available
+console.log(localStorage.getItem('chatbot_visited'));
+
+// Inspecting webhook response
+const response = await fetch(url, { method: 'POST', body: JSON.stringify(data) });
+console.log(await response.json());
+
+// Check what environment variables are available
+console.log({ VITE_CONTACT_WEBHOOK_URL: import.meta.env.VITE_CONTACT_WEBHOOK_URL });
+```
+
+### Performance Debugging
+- **Slow page load**: Check Network tab in DevTools for large files or slow requests
+- **Runtime lag**: Use React DevTools Profiler to find slow components
+- **High CPU usage**: Check for infinite loops or excessive re-renders (look for `useEffect` without proper dependencies)
+- **Memory leaks**: Ensure event listeners are cleaned up in `useEffect` return functions
 
 ## TypeScript Configuration
 

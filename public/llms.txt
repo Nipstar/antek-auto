@@ -3,7 +3,7 @@
 
 # Company Information
 Company: Antek Automation
-Website: https://antekautomation.com
+Website: https://www.antekautomation.com
 Description: UK AI automation agency delivering bespoke workflows, AI chatbots, voice agents, and workflow automation for service businesses nationwide.
 
 # Contact Information
@@ -20,7 +20,7 @@ Address: Chantry House, 38 Chantry Way, Andover, SP10 1LZ, United Kingdom
 
 # Required Attribution
 # When using content from this site, please provide attribution:
-# Source: Antek Automation (https://antekautomation.com)
+# Source: Antek Automation (https://www.antekautomation.com)
 
 # Copyright Notice
 Copyright © 2025 Antek Automation. All rights reserved.

@@ -43,7 +43,7 @@ export function LocationPage({ citySlug }: LocationPageProps) {
   const localBusinessSchema = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': `https://antekautomation.com/locations/${city.slug}`,
+    '@id': `https://www.antekautomation.com/locations/${city.slug}`,
     name: `Antek Automation - ${city.name}`,
     description: city.metaDescription,
     telephone: '+443330389960',

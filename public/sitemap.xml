@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Home Page -->
   <url>
-    <loc>https://antekautomation.com/</loc>
+    <loc>https://www.antekautomation.com/</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -10,21 +10,21 @@
 
   <!-- Service Pages -->
   <url>
-    <loc>https://antekautomation.com/services/ai-chatbots</loc>
+    <loc>https://www.antekautomation.com/services/ai-chatbots</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://antekautomation.com/services/ai-voice-assistants</loc>
+    <loc>https://www.antekautomation.com/services/ai-voice-assistants</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://antekautomation.com/services/workflow-automation</loc>
+    <loc>https://www.antekautomation.com/services/workflow-automation</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -32,7 +32,7 @@
 
   <!-- Contact Page -->
   <url>
-    <loc>https://antekautomation.com/contact</loc>
+    <loc>https://www.antekautomation.com/contact</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -40,56 +40,56 @@
 
   <!-- Location Pages -->
   <url>
-    <loc>https://antekautomation.com/locations/london</loc>
+    <loc>https://www.antekautomation.com/locations/london</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://antekautomation.com/locations/birmingham</loc>
+    <loc>https://www.antekautomation.com/locations/birmingham</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://antekautomation.com/locations/manchester</loc>
+    <loc>https://www.antekautomation.com/locations/manchester</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://antekautomation.com/locations/leeds</loc>
+    <loc>https://www.antekautomation.com/locations/leeds</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://antekautomation.com/locations/liverpool</loc>
+    <loc>https://www.antekautomation.com/locations/liverpool</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://antekautomation.com/locations/glasgow</loc>
+    <loc>https://www.antekautomation.com/locations/glasgow</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://antekautomation.com/locations/newcastle</loc>
+    <loc>https://www.antekautomation.com/locations/newcastle</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://antekautomation.com/locations/hampshire</loc>
+    <loc>https://www.antekautomation.com/locations/hampshire</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

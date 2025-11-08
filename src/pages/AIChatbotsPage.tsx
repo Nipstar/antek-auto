@@ -31,7 +31,7 @@ export function AIChatbotsPage() {
               AI CHATBOTS | 24/7 LEAD CAPTURE | UK SERVICE BUSINESSES
             </p>
             <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-              AI Chatbots
+              AI Chatbots | Antek Automation
             </h1>
             <p className="text-lg text-charcoal leading-normal mb-8">
               Your website visitors want answers now, not tomorrow. Our AI chatbots capture leads, answer questions, and book appointments 24/7—even when you're busy or asleep.

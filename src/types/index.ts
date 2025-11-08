@@ -3,8 +3,7 @@ export interface ContactFormData {
   businessName?: string;
   phone: string;
   email: string;
-  serviceType?: string;
-  budget?: string;
+  serviceType: string;
   interests: string[];
   message?: string;
   preferredContact: 'phone' | 'email' | 'either';

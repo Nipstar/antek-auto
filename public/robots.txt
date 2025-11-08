@@ -4,4 +4,4 @@ Disallow: /admin/
 Disallow: /.env*
 
 # Sitemap reference for search engines
-Sitemap: https://antekautomation.com/sitemap.xml
+Sitemap: https://www.antekautomation.com/sitemap.xml

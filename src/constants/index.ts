@@ -20,5 +20,5 @@ export const CONSTANTS = {
 
   // Company information
   COMPANY_NAME: 'Antek Automation',
-  COMPANY_DOMAIN: 'https://antekautomation.com',
+  COMPANY_DOMAIN: 'https://www.antekautomation.com',
 };

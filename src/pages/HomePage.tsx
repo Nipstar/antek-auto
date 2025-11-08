@@ -26,13 +26,13 @@ export function HomePage() {
   const organisationSchema = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': 'https://antekautomation.com',
+    '@id': 'https://www.antekautomation.com',
     name: 'Antek Automation',
     alternateName: 'Antek',
     description: 'UK AI automation agency delivering bespoke workflows that streamline operations, cut costs & boost ROI for businesses nationwide.',
-    url: 'https://antekautomation.com',
-    logo: 'https://antekautomation.com/logo.svg',
-    image: 'https://antekautomation.com/logo.svg',
+    url: 'https://www.antekautomation.com',
+    logo: 'https://www.antekautomation.com/logo.svg',
+    image: 'https://www.antekautomation.com/logo.svg',
     telephone: '+443330389960',
     email: 'hello@antekautomation.com',
     address: {
@@ -64,7 +64,7 @@ export function HomePage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-                Antek Automation
+                Antek Automation | Ai Automation Agency UK
               </h1>
               <p className="text-xl md:text-2xl font-bold text-terracotta mb-6">
                 AI That Works for Your Business
