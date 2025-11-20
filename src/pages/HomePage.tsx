@@ -3,6 +3,7 @@ import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
+import { VoiceDemoButton } from '../components/VoiceDemoButton';
 
 const VoiceChat = lazy(() => import('../components/VoiceChat').then(m => ({ default: m.VoiceChat })));
 
@@ -72,9 +73,9 @@ export function HomePage() {
               <p className="text-lg text-charcoal leading-normal mb-8">
                 Stop losing customers to missed calls and slow responses. Antek Automation deploys AI chatbots, voice agents, and workflow automation that work 24/7 to capture leads, book appointments, and grow your revenue.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Button variant="primary" onClick={() => navigate('/contact')}>Get Started Free</Button>
-                <Button variant="secondary" onClick={() => setIsVoiceChatOpen(true)}>See How It Works</Button>
+              <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+                <VoiceDemoButton onClick={() => setIsVoiceChatOpen(true)} />
+                <Button variant="secondary" onClick={() => navigate('/contact')}>Book a Call</Button>
               </div>
             </div>
             <div className="relative">

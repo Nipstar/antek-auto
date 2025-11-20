@@ -1,7 +1,11 @@
+import { useState, lazy, Suspense } from 'react';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
+
+// Lazy load voice chat component (only needed when user clicks demo)
+const VoiceChat = lazy(() => import('../components/VoiceChat').then(m => ({ default: m.VoiceChat })));
 
 const navigate = (path: string) => {
   window.history.pushState(null, '', path);
@@ -9,6 +13,8 @@ const navigate = (path: string) => {
 };
 
 export function WorkflowAutomationPage() {
+  const [isVoiceChatOpen, setIsVoiceChatOpen] = useState(false);
+
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Services', url: '/#services' },
@@ -36,11 +42,66 @@ export function WorkflowAutomationPage() {
             <p className="text-lg text-charcoal leading-normal mb-8">
               Your business shouldn't require you to manually copy data between systems, send the same emails repeatedly, or chase payments. We build custom workflows using n8n that connect your tools and automate the repetitive work—so you can focus on growth.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button variant="primary" onClick={() => navigate('/contact')}>
-                Get Started
-              </Button>
-              <Button variant="secondary" onClick={() => window.dispatchEvent(new Event('openChatbot'))}>See Examples</Button>
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 flex-wrap">
+              <button
+                onClick={() => document.getElementById('popular-workflows')?.scrollIntoView({ behavior: 'smooth' })}
+                className="relative group text-left"
+              >
+                {/* Animated background glow */}
+                <div className="absolute -inset-1 bg-terracotta blur-sm group-hover:opacity-40 transition-opacity duration-300 rounded-sm animate-pulse opacity-10"></div>
+
+                {/* Main button */}
+                <div className="relative px-6 md:px-8 py-3 md:py-4 bg-terracotta border-3 border-charcoal shadow-brutal-sm hover:shadow-brutal-lg transition-all duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1 active:translate-x-0 active:translate-y-0 active:shadow-brutal-xs">
+                  <div className="font-black uppercase text-sm md:text-base text-off-white tracking-tight-lg">
+                    See What We Automate
+                  </div>
+                  <div className="text-xs text-off-white mt-1">
+                    Common workflows for UK trades
+                  </div>
+                </div>
+              </button>
+
+              <button
+                onClick={() => setIsVoiceChatOpen(true)}
+                className="relative group text-left"
+              >
+                {/* Animated background glow */}
+                <div className="absolute -inset-1 bg-soft-sage blur-sm group-hover:opacity-40 transition-opacity duration-300 rounded-sm animate-pulse opacity-10"></div>
+
+                {/* Main button */}
+                <div className="relative px-6 md:px-8 py-3 md:py-4 bg-soft-sage border-3 border-charcoal shadow-brutal-sm hover:shadow-brutal-lg transition-all duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1 active:translate-x-0 active:translate-y-0 active:shadow-brutal-xs">
+                  {/* Live badge */}
+                  <div className="absolute -top-3 -right-3 flex items-center space-x-1 bg-soft-sage border-2 border-charcoal px-2 py-1 rounded-full">
+                    <span className="w-2 h-2 bg-charcoal rounded-full animate-pulse"></span>
+                    <span className="text-xs font-black uppercase text-charcoal">Live</span>
+                  </div>
+
+                  <div className="font-black uppercase text-sm md:text-base text-charcoal tracking-tight-lg">
+                    🎙️ Try Our Voice AI Agent Live
+                  </div>
+                  <div className="text-xs text-charcoal mt-1">
+                    Hear the quality of AI we build • No signup • 🟢 Available 24/7
+                  </div>
+                </div>
+              </button>
+
+              <button
+                onClick={() => navigate('/contact')}
+                className="relative group text-left"
+              >
+                {/* Animated background glow */}
+                <div className="absolute -inset-1 bg-mid-gray blur-sm group-hover:opacity-40 transition-opacity duration-300 rounded-sm animate-pulse opacity-10"></div>
+
+                {/* Main button */}
+                <div className="relative px-6 md:px-8 py-3 md:py-4 bg-off-white border-3 border-charcoal shadow-brutal-sm hover:shadow-brutal-lg transition-all duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1 active:translate-x-0 active:translate-y-0 active:shadow-brutal-xs">
+                  <div className="font-black uppercase text-sm md:text-base text-charcoal tracking-tight-lg">
+                    Get Custom Quote
+                  </div>
+                  <div className="text-xs text-charcoal mt-1">
+                    Discuss your needs
+                  </div>
+                </div>
+              </button>
             </div>
           </div>
         </div>
@@ -74,7 +135,7 @@ export function WorkflowAutomationPage() {
       </section>
 
       {/* Popular Workflows */}
-      <section className="bg-soft-sage border-y-3 border-charcoal py-20 md:py-28">
+      <section id="popular-workflows" className="bg-soft-sage border-y-3 border-charcoal py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
             <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
@@ -315,6 +376,13 @@ export function WorkflowAutomationPage() {
           </Button>
         </div>
       </section>
+
+      {/* Voice Chat Modal */}
+      {isVoiceChatOpen && (
+        <Suspense fallback={null}>
+          <VoiceChat isOpen={isVoiceChatOpen} onClose={() => setIsVoiceChatOpen(false)} />
+        </Suspense>
+      )}
     </div>
   );
 }

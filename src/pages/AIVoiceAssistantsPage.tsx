@@ -3,6 +3,7 @@ import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
+import { VoiceAgentDemoButton } from '../components/VoiceAgentDemoButton';
 
 // Lazy load voice chat component (only needed when user clicks demo)
 const VoiceChat = lazy(() => import('../components/VoiceChat').then(m => ({ default: m.VoiceChat })));
@@ -42,11 +43,14 @@ export function AIVoiceAssistantsPage() {
             <p className="text-lg text-charcoal leading-normal mb-8">
               Stop dropping tools mid-job to answer the phone. Our intelligent assistants handle incoming calls 24/7, answer questions, take bookings, and route urgent matters to you—all with natural, human-like conversation.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button variant="primary" onClick={() => navigate('/contact')}>
-                Get Started
+            <div className="mb-6">
+              <p className="text-sm font-black uppercase text-charcoal mb-4">Hear how natural our AI sounds →</p>
+            </div>
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+              <VoiceAgentDemoButton onClick={() => setIsVoiceChatOpen(true)} />
+              <Button variant="secondary" onClick={() => navigate('/contact')}>
+                Get Your Voice Agent →
               </Button>
-              <Button variant="secondary" onClick={() => setIsVoiceChatOpen(true)}>Hear Demo</Button>
             </div>
           </div>
         </div>

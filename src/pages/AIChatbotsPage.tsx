@@ -2,6 +2,7 @@ import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
+import { ChatbotDemoButton } from '../components/ChatbotDemoButton';
 
 const navigate = (path: string) => {
   window.history.pushState(null, '', path);
@@ -36,11 +37,14 @@ export function AIChatbotsPage() {
             <p className="text-lg text-charcoal leading-normal mb-8">
               Your website visitors want answers now, not tomorrow. Our AI chatbots capture leads, answer questions, and book appointments 24/7—even when you're busy or asleep.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button variant="primary" onClick={() => navigate('/contact')}>
-                Get Started
+            <div className="mb-6">
+              <p className="text-sm font-black uppercase text-charcoal mb-4">See it in action →</p>
+            </div>
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+              <ChatbotDemoButton onClick={() => window.dispatchEvent(new Event('openChatbot'))} />
+              <Button variant="secondary" onClick={() => navigate('/contact')}>
+                Get Your Chatbot →
               </Button>
-              <Button variant="secondary" onClick={() => window.dispatchEvent(new Event('openChatbot'))}>See Demo</Button>
             </div>
           </div>
         </div>

@@ -38,6 +38,21 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://www.antekautomation.com/terms-of-business</loc>
+    <lastmod>2025-11-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.antekautomation.com/privacy-policy</loc>
+    <lastmod>2025-11-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Location Pages -->
   <url>
     <loc>https://www.antekautomation.com/locations/london</loc>

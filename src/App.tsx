@@ -13,6 +13,8 @@ const AIChatbotsPage = lazy(() => import('./pages/AIChatbotsPage').then(m => ({ 
 const AIVoiceAssistantsPage = lazy(() => import('./pages/AIVoiceAssistantsPage').then(m => ({ default: m.AIVoiceAssistantsPage })));
 const WorkflowAutomationPage = lazy(() => import('./pages/WorkflowAutomationPage').then(m => ({ default: m.WorkflowAutomationPage })));
 const LocationPage = lazy(() => import('./pages/LocationPage').then(m => ({ default: m.LocationPage })));
+const TermsOfBusinessPage = lazy(() => import('./pages/TermsOfBusinessPage').then(m => ({ default: m.TermsOfBusinessPage })));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })));
 
 // Global navigate function for easy access in onClick handlers
 const navigate = (path: string) => {
@@ -60,6 +62,10 @@ function App() {
         return <AIVoiceAssistantsPage />;
       case '/services/workflow-automation':
         return <WorkflowAutomationPage />;
+      case '/terms-of-business':
+        return <TermsOfBusinessPage />;
+      case '/privacy-policy':
+        return <PrivacyPolicyPage />;
       default:
         return <HomePage />;
     }

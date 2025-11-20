@@ -1,8 +1,14 @@
+import { useState, lazy, Suspense } from 'react';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
+import { ChatbotDemoButton } from '../components/ChatbotDemoButton';
+import { VoiceAgentDemoButton } from '../components/VoiceAgentDemoButton';
 import { getCityData } from '../data/cities';
+
+// Lazy load voice chat component (only needed when user clicks demo)
+const VoiceChat = lazy(() => import('../components/VoiceChat').then(m => ({ default: m.VoiceChat })));
 
 const navigate = (path: string) => {
   window.history.pushState(null, '', path);
@@ -14,6 +20,7 @@ interface LocationPageProps {
 }
 
 export function LocationPage({ citySlug }: LocationPageProps) {
+  const [isVoiceChatOpen, setIsVoiceChatOpen] = useState(false);
   const city = getCityData(citySlug);
 
   if (!city) {
@@ -92,13 +99,12 @@ export function LocationPage({ citySlug }: LocationPageProps) {
             <p className="text-lg text-charcoal leading-normal mb-8">
               {city.heroDescription}
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button variant="primary" onClick={() => (navigate('/contact'))}>
-                Get Started
-              </Button>
-              <Button variant="secondary" onClick={() => (navigate('/#services'))}>
-                Our Services
-              </Button>
+            <div className="mb-6">
+              <p className="text-sm font-black uppercase text-charcoal mb-4">Try our AI in action →</p>
+            </div>
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+              <VoiceAgentDemoButton onClick={() => setIsVoiceChatOpen(true)} />
+              <ChatbotDemoButton onClick={() => window.dispatchEvent(new Event('openChatbot'))} />
             </div>
           </div>
         </div>
@@ -359,6 +365,13 @@ export function LocationPage({ citySlug }: LocationPageProps) {
           </Button>
         </div>
       </section>
+
+      {/* Voice Chat Modal */}
+      {isVoiceChatOpen && (
+        <Suspense fallback={null}>
+          <VoiceChat isOpen={isVoiceChatOpen} onClose={() => setIsVoiceChatOpen(false)} />
+        </Suspense>
+      )}
     </div>
   );
 }

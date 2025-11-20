@@ -167,6 +167,27 @@ VITE_SUPABASE_ANON_KEY - Supabase anonymous key (if using Supabase)
 - Payload structure defined in `ContactFormData` type
 - Includes fields: name, businessName, phone, email, serviceType, budget, interests[], message, preferredContact
 
+### Google Analytics Integration
+
+**Environment Variable** (add to `.env`):
+```
+VITE_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
+```
+
+**Setup:**
+- Analytics tracking is configured in the app initialization
+- Tracks page views, user interactions, and form submissions
+- Sent through the `VITE_GOOGLE_ANALYTICS_ID` environment variable
+- Important: Environment variable must be set before build time (Vite bakes it into the bundle)
+- For development, update `.env` and restart dev server
+- For production, set environment variable before running `npm run build`
+
+**Tracking Points:**
+- Page navigation (automatically tracked on route changes)
+- Form submissions (contact form)
+- Chatbot interactions (message sends)
+- Button clicks (CTA buttons, service links)
+
 ## Technology Stack
 
 **Core Framework:**
@@ -233,8 +254,11 @@ The following functions are attached to `window` for global access:
 All pages must use the `SEOHead` component to set metadata. It handles:
 - Page title (appears in browser tab and search results)
 - Meta description (preview text in search results)
-- Canonical URL (prevents duplicate content issues)
+- Canonical URL (automatically set to `https://www.antekautomation.com${path}`, prevents duplicate content issues)
+- Open Graph tags (og:title, og:description, og:url, og:type)
+- Twitter Card tags (twitter:card, twitter:title, twitter:description)
 - JSON-LD schema markup (helps search engines understand page content)
+- Breadcrumb schema (optional, for hierarchical page relationships)
 
 **Usage Example:**
 ```typescript
@@ -246,6 +270,12 @@ export const MyPage = () => {
       <SEOHead
         title="Page Title | Antek Automation"
         description="Meta description that appears in search results (150-160 chars ideal)"
+        path="/services/ai-chatbots"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Services', url: '/services' },
+          { name: 'AI Chatbots', url: '/services/ai-chatbots' }
+        ]}
         schema={{
           '@context': 'https://schema.org',
           '@type': 'LocalBusiness',
@@ -262,9 +292,12 @@ export const MyPage = () => {
 **Important Notes:**
 - Always include brand name in title (e.g., "Page Title | Antek Automation")
 - Keep descriptions 150-160 characters for optimal search result display
+- The `path` prop is used to generate canonical URL and should match the route
+- Breadcrumbs are optional but recommended for service/location pages (improves SEO)
 - Use LocalBusiness schema for location pages, Organization for general pages
 - Organization schema defined at page level (see `HomePage.tsx` for example)
 - Schema markup should include context data relevant to each page (services, location, testimonials, etc.)
+- Open Graph and Twitter Card tags are automatically generated from title, description, and URL
 
 ### Webhook Communication & Error Handling
 - All webhook calls use `fetch()` with POST requests
@@ -360,26 +393,59 @@ import { Navigation } from './components/Navigation';
 
 ### Git & Commit Workflow
 
-This project may have pre-commit hooks that enforce quality checks. When committing:
+This project uses **pre-commit hooks** (via Husky or similar) that automatically enforce quality checks before commits are created.
 
+**What Pre-Commit Hooks Do:**
+- Run TypeScript type checking (`npm run typecheck`)
+- Run ESLint linting (`npm run lint`)
+- Run production build verification (`npm run build`)
+- Block commits if any checks fail (prevents broken code from entering repository)
+- May auto-fix issues and require re-staging files
+
+**Commit Workflow:**
 ```bash
 # 1. Make your changes
 git add src/...
 
-# 2. Run checks (these must pass before committing)
-npm run typecheck
-npm run lint
-npm run build
+# 2. Attempt commit
+git commit -m "Description of changes"
 
-# 3. If checks fail, fix issues and try again
-# 4. Commit when all checks pass
+# 3. Pre-commit hooks run automatically
+# If all checks pass → commit succeeds
+# If checks fail → commit is blocked, review errors and fix
+
+# 4. After fixing issues, re-add files and commit again
+git add src/...
 git commit -m "Description of changes"
 ```
 
-If you encounter git errors after running checks:
-- Pre-commit hooks might modify files (don't worry, this is normal)
-- Re-run `git status` and verify changes are correct
-- Re-add modified files and commit again
+**If Pre-Commit Hooks Modify Files:**
+- This is intentional behavior (e.g., `npm run lint --fix` auto-fixes some issues)
+- Re-run `git status` to see what changed
+- Review the changes carefully
+- Re-add modified files: `git add src/...`
+- Try commit again
+
+**To Bypass Pre-Commit Hooks (Not Recommended):**
+```bash
+# Skip hooks entirely (use only if you know what you're doing)
+git commit --no-verify -m "Description"
+```
+
+**Manual Pre-Commit Checks (Run Before Committing):**
+```bash
+# 1. Run type checker (catches TypeScript errors)
+npm run typecheck
+
+# 2. Run linter (catches style issues and React hook violations)
+npm run lint
+
+# 3. Build to verify production bundling works
+npm run build
+
+# Commit only after all checks pass
+git commit -m "Description of changes"
+```
 
 ### Design Changes
 - Maintain 3px borders (`border-3`) and hard box shadows (`shadow-brutal*`)
@@ -514,6 +580,23 @@ console.log({ VITE_CONTACT_WEBHOOK_URL: import.meta.env.VITE_CONTACT_WEBHOOK_URL
 - **High CPU usage**: Check for infinite loops or excessive re-renders (look for `useEffect` without proper dependencies)
 - **Memory leaks**: Ensure event listeners are cleaned up in `useEffect` return functions
 
+## Documentation Files
+
+### CLAUDE.md (This File)
+Guidance for Claude Code and other AI assistants working with this codebase. Contains architecture, patterns, and troubleshooting.
+
+### llms.txt
+Context file for Large Language Models (AI training and inference). Contains comprehensive project overview, technology stack, performance metrics, and implementation patterns. Used to provide AI assistants with accurate codebase context for code analysis and generation.
+
+**Location:** `llms.txt` (root directory)
+
+**When to Update:**
+- When major architectural changes are made
+- When adding new services or significant features
+- When updating technology dependencies
+- When improving performance significantly
+- Keep sync with CLAUDE.md for consistency
+
 ## TypeScript Configuration
 
 The project uses TypeScript project references:
@@ -597,6 +680,11 @@ npm run preview    # Preview production build locally
   - Vercel and Netlify auto-configure this for SPAs
   - For other hosts, configure 404 → index.html rewrite or enable trailing slash rewrites
 - Environment variables must be set at build time or runtime via `.env` file
+
+**AI Crawler Support:**
+- Site allows AI crawlers (`robots.txt` permits `User-agent: *` for LLM training crawlers)
+- `llms.txt` file provides structured context for AI systems
+- Enables AI assistants to understand codebase structure and contribute more effectively
 
 ## TypeScript Strictness
 

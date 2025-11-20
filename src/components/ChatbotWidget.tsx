@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Send } from 'lucide-react';
+import { X, Send, MessageCircle } from 'lucide-react';
 import { ChatMessage } from '../types';
 import { CONSTANTS } from '../constants';
 
@@ -163,14 +163,20 @@ export function ChatbotWidget() {
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-15 h-15 bg-terracotta border-3 border-charcoal shadow-brutal-sm rounded-sm flex items-center justify-center hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-brutal transition-all duration-200 z-50"
-        aria-label="Open chat"
+        className="fixed bottom-8 right-8 w-16 h-16 bg-terracotta border-3 border-charcoal shadow-brutal rounded-full flex items-center justify-center hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 z-50 group"
+        aria-label={isOpen ? 'Close chat' : 'Open chat'}
+        title={isOpen ? 'Close chat' : 'Chat with us'}
       >
-        {isOpen ? (
-          <X className="w-7 h-7 text-off-white" />
-        ) : (
-          <span className="text-2xl font-black text-off-white">C</span>
-        )}
+        <div className="relative flex items-center justify-center">
+          {isOpen ? (
+            <X className="w-8 h-8 text-off-white" />
+          ) : (
+            <>
+              <MessageCircle className="w-8 h-8 text-off-white" />
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-off-white rounded-full animate-pulse"></span>
+            </>
+          )}
+        </div>
       </button>
 
       {isOpen && (
