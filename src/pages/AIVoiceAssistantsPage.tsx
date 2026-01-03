@@ -56,6 +56,33 @@ export function AIVoiceAssistantsPage() {
         </div>
       </section>
 
+      {/* Retell AI Partner Badge */}
+      <section className="py-16 md:py-20 bg-soft-sage">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="max-w-md mx-auto bg-off-white border-3 border-charcoal shadow-brutal p-8 md:p-10 text-center hover:shadow-brutal-lg hover:border-terracotta transition-all duration-300">
+            <img
+              src="/Retell-Ai.svg"
+              alt="Retell AI Official Partner"
+              className="w-56 md:w-64 mx-auto mb-6"
+            />
+            <h3 className="font-black text-xl md:text-2xl uppercase tracking-tight-lg text-charcoal mb-3">
+              Official Retell AI Partner
+            </h3>
+            <p className="text-charcoal leading-relaxed mb-6">
+              Powered by enterprise-grade voice AI technology
+            </p>
+            <a
+              href="https://www.retellai.com/partner/antek-automation"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block font-bold text-charcoal border-b-3 border-terracotta hover:text-terracotta transition-colors duration-200"
+            >
+              View Partnership →
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* What It Does */}
       <section className="py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-12">

@@ -1,5 +1,6 @@
 import { getAllCities } from '../data/cities';
 import { CONSTANTS } from '../constants';
+import { SocialLinks } from './SocialLinks';
 
 export function Footer() {
   const cities = getAllCities();
@@ -103,6 +104,12 @@ export function Footer() {
               </li>
             </ul>
           </div>
+        </div>
+
+        {/* Social Links */}
+        <div className="border-t-3 border-charcoal mt-16 pt-12">
+          <h4 className="font-black uppercase text-off-white text-sm tracking-tight-lg mb-6">Connect With Us</h4>
+          <SocialLinks variant="footer" showLabels={false} />
         </div>
 
         {/* Copyright */}

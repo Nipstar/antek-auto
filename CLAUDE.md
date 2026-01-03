@@ -89,6 +89,8 @@ The app uses **client-side routing** via `window.location.pathname` (not React R
 - `/services/ai-voice-assistants` → AIVoiceAssistantsPage
 - `/services/workflow-automation` → WorkflowAutomationPage
 - `/locations/:citySlug` → LocationPage (dynamic route for location-specific pages)
+- `/terms-of-business` → TermsOfBusinessPage
+- `/privacy-policy` → PrivacyPolicyPage
 
 The current route is determined by `window.location.pathname`. Navigation automatically scrolls to top on route change. Use the global `window.navigate(path)` function for programmatic navigation (e.g., `window.navigate('/contact')`). Note: There is no dedicated Pricing page - pricing information is included on the service-specific pages.
 
@@ -108,10 +110,15 @@ Location pages use a slug-based pattern (e.g., `/locations/london-ai-automation`
   - `AIVoiceAssistantsPage.tsx`: Dedicated service page for voice AI
   - `WorkflowAutomationPage.tsx`: Dedicated service page for automation
   - `LocationPage.tsx`: Dynamic location-specific landing pages (receives citySlug prop)
+  - `TermsOfBusinessPage.tsx`: Terms of business/service legal page
+  - `PrivacyPolicyPage.tsx`: Privacy policy and data handling page
 - **Components** (`src/components/`): Reusable UI components
   - `ChatbotWidget.tsx`: Persistent chatbot that appears on all pages
   - `Navigation.tsx` & `Footer.tsx`: Global layout components
   - `Button.tsx`, `Card.tsx`, `Icon.tsx`: Design system primitives
+  - `ChatbotDemoButton.tsx`: CTA button to launch chatbot demo
+  - `VoiceAgentDemoButton.tsx`: CTA button to launch voice agent demo
+  - `VoiceDemoButton.tsx`: Alternative voice demo button variant
 
 ### Type Definitions
 All TypeScript types are centralized in `src/types/index.ts`:
@@ -340,6 +347,8 @@ try {
 - `src/pages/AIVoiceAssistantsPage.tsx` - Service detail page: Voice AI with ElevenLabs demo integration
 - `src/pages/WorkflowAutomationPage.tsx` - Service detail page: Workflow automation solutions
 - `src/pages/LocationPage.tsx` - Dynamic location pages (receives `citySlug` prop from route)
+- `src/pages/TermsOfBusinessPage.tsx` - Legal terms of service and business conditions
+- `src/pages/PrivacyPolicyPage.tsx` - Privacy policy, cookie policy, data protection details
 
 ### Components
 - `src/components/Navigation.tsx` - Global header with logo, nav links, services dropdown, responsive menu
@@ -350,6 +359,9 @@ try {
 - `src/components/Card.tsx` - Card primitive: `hover` prop enables translate + shadow effect on hover
 - `src/components/Icon.tsx` - Icon wrapper component using lucide-react
 - `src/components/SEOHead.tsx` - Sets meta tags, title, description, JSON-LD schema markup
+- `src/components/ChatbotDemoButton.tsx` - Reusable CTA button to trigger chatbot widget demo
+- `src/components/VoiceAgentDemoButton.tsx` - Reusable CTA button to launch voice agent modal
+- `src/components/VoiceDemoButton.tsx` - Alternative variant of voice demo button
 
 ### Data & Types
 - `src/data/cities.ts` - City data for location pages (name, slug, description, testimonials, service offerings)
@@ -680,6 +692,14 @@ npm run preview    # Preview production build locally
   - Vercel and Netlify auto-configure this for SPAs
   - For other hosts, configure 404 → index.html rewrite or enable trailing slash rewrites
 - Environment variables must be set at build time or runtime via `.env` file
+
+**Vercel Configuration** (`vercel.json`):
+- SPA fallback: All routes rewrite to `/index.html`
+- Caching headers:
+  - Assets (`/assets/*`, SVG, PNG): 1 year immutable cache
+  - `index.html`: 1 hour cache with revalidation
+- Security headers: X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, Referrer-Policy
+- Optimized for performance and security out of the box
 
 **AI Crawler Support:**
 - Site allows AI crawlers (`robots.txt` permits `User-agent: *` for LLM training crawlers)

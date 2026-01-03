@@ -28,8 +28,6 @@ export const initializeGoogleAnalytics = (gtagId: string) => {
     });
   `;
   document.head.appendChild(script2);
-
-  console.log('Google Analytics initialized with ID:', gtagId);
 };
 
 // Track page views (call this when route changes)

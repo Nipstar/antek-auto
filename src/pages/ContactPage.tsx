@@ -4,6 +4,7 @@ import { Card } from '../components/Card';
 import { ContactFormData } from '../types';
 import { SEOHead } from '../components/SEOHead';
 import { CONSTANTS } from '../constants';
+import { SocialLinks } from '../components/SocialLinks';
 
 const CONTACT_WEBHOOK_URL = import.meta.env.VITE_CONTACT_WEBHOOK_URL || '';
 
@@ -112,7 +113,7 @@ export function ContactPage() {
         path="/contact"
         breadcrumbs={breadcrumbs}
       />
-      <div className="max-w-5xl mx-auto px-6 md:px-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="text-center mb-12">
           <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6">
             Get Started with Antek Automation
@@ -122,29 +123,9 @@ export function ContactPage() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="max-w-3xl mx-auto">
           <Card>
-            <h3 className="font-black text-xl uppercase text-charcoal mb-2">Email</h3>
-            <p className="text-charcoal"><a href={`mailto:${CONSTANTS.CONTACT_EMAIL}`} className="hover:text-terracotta transition-colors font-bold">{CONSTANTS.CONTACT_EMAIL}</a></p>
-          </Card>
-          <Card>
-            <h3 className="font-black text-xl uppercase text-charcoal mb-2">Phone</h3>
-            <p className="text-charcoal"><a href="tel:03330389960" className="hover:text-terracotta transition-colors font-bold">03330 389960</a></p>
-          </Card>
-          <Card>
-            <h3 className="font-black text-xl uppercase text-charcoal mb-2">Location</h3>
-            <p className="text-charcoal">
-              <a href="https://maps.google.com/?q=Chantry+House,+38+Chantry+Way,+Andover,+SP10+1LZ" target="_blank" rel="noopener noreferrer" className="hover:text-terracotta transition-colors font-bold">
-                Chantry House<br />
-                38 Chantry Way<br />
-                Andover, SP10 1LZ
-              </a>
-            </p>
-          </Card>
-        </div>
-
-        <Card>
-          <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="font-black text-charcoal mb-2 block uppercase text-sm">
@@ -301,11 +282,54 @@ export function ContactPage() {
               {isSubmitting ? 'Sending...' : 'Send Enquiry'}
             </Button>
 
-            <p className="text-sm text-charcoal text-center">
-              We typically respond within 2 hours during business hours
+              <p className="text-sm text-charcoal text-center">
+                We typically respond within 2 hours during business hours
+              </p>
+            </form>
+          </Card>
+        </div>
+
+        {/* Contact Information Section */}
+        <div className="mt-20 mb-16">
+          <h2 className="font-black text-3xl md:text-4xl uppercase tracking-tight-xl text-charcoal mb-10 text-center">
+            Other Ways to Reach Us
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-2">Email</h3>
+              <p className="text-charcoal break-words"><a href={`mailto:${CONSTANTS.CONTACT_EMAIL}`} className="hover:text-terracotta transition-colors font-bold break-words">{CONSTANTS.CONTACT_EMAIL}</a></p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-2">Phone</h3>
+              <p className="text-charcoal"><a href="tel:03330389960" className="hover:text-terracotta transition-colors font-bold">03330 389960</a></p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-2">Location</h3>
+              <p className="text-charcoal">
+                <a href="https://maps.google.com/?q=Chantry+House,+38+Chantry+Way,+Andover,+SP10+1LZ" target="_blank" rel="noopener noreferrer" className="hover:text-terracotta transition-colors font-bold">
+                  Chantry House<br />
+                  38 Chantry Way<br />
+                  Andover, SP10 1LZ
+                </a>
+              </p>
+            </Card>
+          </div>
+        </div>
+
+        {/* Connect With Us Section */}
+        <div className="max-w-3xl mx-auto">
+          <Card>
+          <div className="text-center mb-8">
+            <h2 className="font-black text-3xl uppercase tracking-tight-xl text-charcoal mb-4">
+              Connect With Us
+            </h2>
+            <p className="text-charcoal text-lg">
+              Follow us on social media and stay updated with the latest AI automation insights
             </p>
-          </form>
+          </div>
+          <SocialLinks variant="page" showLabels={true} />
         </Card>
+        </div>
       </div>
     </div>
   );
