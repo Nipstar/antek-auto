@@ -142,7 +142,7 @@ export function HomePage() {
         "result": {
           "@type": "Service",
           "name": "AI Automation Consultation",
-          "serviceTyp": "Automation Strategy"
+          "serviceType": "Automation Strategy"
         }
       },
       "hasMap": "https://www.google.com/maps?q=51.20919060, -1.48037770",
