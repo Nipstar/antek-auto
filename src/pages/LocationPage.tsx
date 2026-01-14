@@ -47,32 +47,6 @@ export function LocationPage({ citySlug }: LocationPageProps) {
     { name: city.name, url: `/locations/${city.slug}` },
   ];
 
-  const localBusinessSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    '@id': `https://www.antekautomation.com/locations/${city.slug}`,
-    name: `Antek Automation - ${city.name}`,
-    description: city.metaDescription,
-    telephone: '+443330389960',
-    email: 'hello@antekautomation.com',
-    areaServed: {
-      '@type': 'City',
-      name: city.name,
-    },
-    serviceType: ['AI Voice Agents', 'AI Chatbots', 'Workflow Automation'],
-    ...(city.slug === 'hampshire' && {
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'Chantry House, 38 Chantry Way',
-        addressLocality: 'Andover',
-        postalCode: 'SP10 1LZ',
-        addressRegion: 'Hampshire',
-        addressCountry: 'GB',
-      },
-    }),
-    priceRange: '£500+',
-  };
-
   return (
     <div className="bg-off-white">
       <SEOHead
@@ -80,7 +54,6 @@ export function LocationPage({ citySlug }: LocationPageProps) {
         description={city.metaDescription}
         path={`/locations/${city.slug}`}
         breadcrumbs={breadcrumbs}
-        schema={localBusinessSchema}
       />
 
       {/* Hero Section */}
