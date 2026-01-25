@@ -109,17 +109,17 @@ export function ContactPage() {
     <div className="bg-off-white py-20 md:py-28">
       <SEOHead
         title="Contact Antek Automation | AI Automation Agency UK"
-        description="Talk to us about AI automation | Capture every customer call 24/7 | Expert setup & support for UK service businesses | Free consultation"
+        description="Talk to us about AI automation | Capture every customer call 24/7 | Expert setup & support for UK businesses | Free consultation"
         path="/contact"
         breadcrumbs={breadcrumbs}
       />
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="text-center mb-12">
           <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6">
-            Get Started with Antek Automation
+            Let's Build Your AI Automation Solution
           </h1>
           <p className="text-lg text-charcoal leading-normal max-w-2xl mx-auto">
-            Tell us about your business and we'll show you exactly how AI automation can help you grow
+            Whether you're a restaurant, consultancy, retailer, or healthcare provider—tell us your challenges and we'll show you exactly how AI automation can transform your business
           </p>
         </div>
 
@@ -150,7 +150,7 @@ export function ContactPage() {
                   value={formData.businessName}
                   onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
                   className="w-full border-3 border-charcoal bg-white px-4 py-3 focus:border-terracotta focus:outline-none text-charcoal"
-                  placeholder="Smith Plumbing Ltd"
+                  placeholder="Your Business Name Ltd"
                 />
               </div>
             </div>
@@ -180,14 +180,14 @@ export function ContactPage() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full border-3 border-charcoal bg-white px-4 py-3 focus:border-terracotta focus:outline-none text-charcoal"
-                  placeholder="john@smithplumbing.co.uk"
+                  placeholder="john@yourbusiness.co.uk"
                 />
               </div>
             </div>
 
             <div>
               <label className="font-black text-charcoal mb-2 block uppercase text-sm">
-                Service Type *
+                Industry / Business Type *
               </label>
               <input
                 type="text"
@@ -195,7 +195,7 @@ export function ContactPage() {
                 value={formData.serviceType}
                 onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
                 className="w-full border-3 border-charcoal bg-white px-4 py-3 focus:border-terracotta focus:outline-none text-charcoal"
-                placeholder="e.g. Plumbing, Cleaning, Consulting"
+                placeholder="e.g., Restaurant, Law Firm, E-commerce, Healthcare, Retail"
               />
             </div>
 

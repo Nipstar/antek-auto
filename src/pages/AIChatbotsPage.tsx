@@ -19,8 +19,8 @@ export function AIChatbotsPage() {
   return (
     <div className="bg-off-white">
       <SEOHead
-        title="AI Chatbots | Antek Automation | AI Automation Agency UK"
-        description="AI chatbots that capture leads 24/7 | Answer FAQs & book appointments automatically | Never miss a customer inquiry again | UK service businesses"
+        title="AI Chatbots That Engage Customers 24/7 | Antek Automation UK"
+        description="AI chatbots for UK businesses | Capture leads & answer questions 24/7 | Book appointments automatically | Never miss a customer inquiry again"
         path="/services/ai-chatbots"
         breadcrumbs={breadcrumbs}
       />
@@ -29,13 +29,19 @@ export function AIChatbotsPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-28">
           <div className="max-w-4xl">
             <p className="text-sm uppercase tracking-wide text-charcoal mb-4 font-black">
-              AI CHATBOTS | 24/7 LEAD CAPTURE | UK SERVICE BUSINESSES
+              AI CHATBOTS | 24/7 LEAD CAPTURE | INSTANT CUSTOMER ENGAGEMENT
             </p>
             <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-              AI Chatbots | Antek Automation
+              Your Website Traffic Leaves Without Converting
             </h1>
+            <p className="text-lg text-charcoal leading-normal mb-4">
+              <strong>The Problem:</strong> Visitors arrive at your website at all hours—evenings, weekends, holidays. They have questions. They're ready to buy. But when nobody responds immediately, they leave and find a competitor who does.
+            </p>
+            <p className="text-lg text-charcoal leading-normal mb-4">
+              <strong>What You're Losing:</strong> 82% of customers expect immediate responses. Every minute they wait is another exit. That's leads, sales, and revenue walking away while you sleep.
+            </p>
             <p className="text-lg text-charcoal leading-normal mb-8">
-              Your website visitors want answers now, not tomorrow. Our AI chatbots capture leads, answer questions, and book appointments 24/7—even when you're busy or asleep.
+              <strong>The Solution:</strong> AI chatbots that engage visitors instantly, answer questions 24/7, qualify leads, and book appointments—turning browsers into buyers even when your team is offline.
             </p>
             <div className="mb-6">
               <p className="text-sm font-black uppercase text-charcoal mb-4">See it in action →</p>
@@ -73,10 +79,10 @@ export function AIChatbotsPage() {
             <Card hover>
               <Icon letter="Q" size="lg" />
               <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Answer Common Questions
+                Answer Customer Questions Instantly
               </h3>
               <p className="text-charcoal leading-normal">
-                "What are your prices?" "Do you serve my area?" "What's your availability?" Your chatbot answers instantly so you don't have to.
+                "What are your prices?" "Do you deliver?" "What's your availability?" Your chatbot answers instantly with accurate information—no waiting, no missed questions.
               </p>
             </Card>
 
@@ -118,7 +124,7 @@ export function AIChatbotsPage() {
                 <div className="flex items-start space-x-3">
                   <span className="text-success-green text-2xl">✓</span>
                   <p className="text-charcoal leading-normal">
-                    <strong>Service businesses with high inquiry volumes</strong> who can't answer every call or message instantly
+                    <strong>Businesses with high inquiry volumes</strong> who can't answer every call or message instantly
                   </p>
                 </div>
                 <div className="flex items-start space-x-3">
@@ -202,10 +208,10 @@ export function AIChatbotsPage() {
           <Card>
             <div className="border-l-4 border-charcoal pl-6">
               <p className="text-lg text-charcoal leading-normal mb-4 italic">
-                "We were losing half our website leads because we couldn't respond fast enough. Now our chatbot captures details instantly and books appointments while we're on jobs. We've added £3,000 in monthly revenue just from after-hours inquiries."
+                "Our online store was getting 500+ monthly inquiries about products, shipping, and stock. We couldn't respond fast enough and were losing sales. The AI chatbot handles everything instantly—product questions, order tracking, and even upselling. Our conversion rate jumped 28% in the first month."
               </p>
               <p className="font-black text-charcoal uppercase text-sm">
-                — Mike T., Plumbing Services, Manchester
+                — Emily R., E-commerce Store Owner, Manchester
               </p>
             </div>
           </Card>

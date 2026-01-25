@@ -18,7 +18,7 @@ export function Footer() {
               </span>
             </a>
             <p className="text-gray-300 text-sm leading-relaxed">
-              AI automation solutions for UK service businesses. Save time, increase revenue, and delight customers.
+              AI automation solutions for UK businesses. Save time, increase revenue, and delight customers.
             </p>
           </div>
 

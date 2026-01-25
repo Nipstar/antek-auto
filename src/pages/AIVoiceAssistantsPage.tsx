@@ -25,8 +25,8 @@ export function AIVoiceAssistantsPage() {
   return (
     <div className="bg-off-white">
       <SEOHead
-        title="AI Voice Agents | AI Voice Assistants | Antek Automation UK"
-        description="AI voice agents that answer calls 24/7 | Book appointments automatically | Never miss a call again | Boost revenue for UK service businesses"
+        title="AI Voice Agents That Answer Every Call 24/7 | Antek Automation UK"
+        description="AI voice agents for UK businesses | Answer every call 24/7 with natural conversation | Book appointments & capture leads | Never miss a customer"
         path="/services/ai-voice-assistants"
         breadcrumbs={breadcrumbs}
       />
@@ -35,13 +35,19 @@ export function AIVoiceAssistantsPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-28">
           <div className="max-w-4xl">
             <p className="text-sm uppercase tracking-wide text-charcoal mb-4 font-black">
-              AI VOICE AGENTS | NEVER MISS CALLS | UK SERVICE BUSINESSES
+              AI VOICE AGENTS | NEVER MISS A CALL | 24/7 CUSTOMER SERVICE
             </p>
             <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-              AI Voice Agents | Antek Automation
+              Every Missed Call is a Lost Customer
             </h1>
+            <p className="text-lg text-charcoal leading-normal mb-4">
+              <strong>The Problem:</strong> While you're serving customers, in meetings, or simply outside business hours, potential customers are calling. When nobody answers, they don't leave a voicemail—they call your competitor.
+            </p>
+            <p className="text-lg text-charcoal leading-normal mb-4">
+              <strong>What It's Costing You:</strong> The average business misses 30-40% of incoming calls. That's thousands in lost revenue every month going straight to competitors who answered first.
+            </p>
             <p className="text-lg text-charcoal leading-normal mb-8">
-              Stop dropping tools mid-job to answer the phone. Our intelligent assistants handle incoming calls 24/7, answer questions, take bookings, and route urgent matters to you—all with natural, human-like conversation.
+              <strong>The Solution:</strong> AI voice agents that answer every call with natural conversation, capture lead details, book appointments, and handle customer questions 24/7. No more missed opportunities. No more lost revenue.
             </p>
             <div className="mb-6">
               <p className="text-sm font-black uppercase text-charcoal mb-4">Hear how natural our AI sounds →</p>
@@ -116,10 +122,10 @@ export function AIVoiceAssistantsPage() {
             <Card hover>
               <Icon letter="M" size="lg" />
               <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Take Messages
+                Capture Lead Details
               </h3>
               <p className="text-charcoal leading-normal">
-                Captures caller details, their needs, and urgency level. Sends you a text summary with their contact info so you can follow up when convenient.
+                Records caller information, their needs, and urgency level. Sends you instant notifications with contact details so you can follow up when it makes sense—or let the AI handle it completely.
               </p>
             </Card>
 
@@ -147,22 +153,12 @@ export function AIVoiceAssistantsPage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             <Card>
-              <Icon letter="T" size="lg" />
+              <Icon letter="H" size="lg" />
               <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Tradespeople
+                Hospitality & Wellness
               </h3>
               <p className="text-charcoal leading-normal">
-                Plumbers, electricians, and builders on job sites who can't answer every call but don't want to lose business to competitors who pick up first.
-              </p>
-            </Card>
-
-            <Card>
-              <Icon letter="C" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Cleaning Services
-              </h3>
-              <p className="text-charcoal leading-normal">
-                Teams out cleaning who need someone to handle booking requests, answer service area questions, and provide quotes without interrupting the workday.
+                Restaurants, hotels, clinics, and spas where staff are busy serving customers and can't answer every reservation, booking, or inquiry call instantly.
               </p>
             </Card>
 
@@ -172,7 +168,17 @@ export function AIVoiceAssistantsPage() {
                 Professional Services
               </h3>
               <p className="text-charcoal leading-normal">
-                Consultants, accountants, and legal professionals who are in client meetings and need calls handled professionally without hiring a receptionist.
+                Law firms, consultancies, and financial advisors who are in client meetings and need calls handled professionally without hiring a receptionist.
+              </p>
+            </Card>
+
+            <Card>
+              <Icon letter="R" size="lg" />
+              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
+                Retail & Service Businesses
+              </h3>
+              <p className="text-charcoal leading-normal">
+                E-commerce stores, property managers, and service providers who need 24/7 phone coverage but can't justify hiring full-time reception staff.
               </p>
             </Card>
           </div>
@@ -215,10 +221,10 @@ export function AIVoiceAssistantsPage() {
           <Card>
             <div className="border-l-4 border-charcoal pl-6">
               <p className="text-lg text-charcoal leading-normal mb-4 italic">
-                "Before, I'd miss 5-10 calls a day because I was on jobs. Now my AI assistant answers everything, books appointments, and texts me summaries. I've booked an extra £15,000 in work this quarter just from calls I used to miss. Best investment I've made."
+                "We were losing high-value clients to firms that answered calls instantly. Our advisors were always in meetings, and potential clients wouldn't wait. The AI voice agent changed everything—it answers professionally, books consultations, and we've increased client intake by 40%. Best investment we've made."
               </p>
               <p className="font-black text-charcoal uppercase text-sm">
-                — James R., Electrician, Birmingham
+                — Sarah T., Managing Partner, Financial Advisory Firm, London
               </p>
             </div>
           </Card>

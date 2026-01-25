@@ -24,8 +24,8 @@ export function WorkflowAutomationPage() {
   return (
     <div className="bg-off-white">
       <SEOHead
-        title="Workflow Automation | Antek Automation | AI Automation Agency UK"
-        description="Automate repetitive tasks & eliminate manual work | Connect your business tools | Save hours every week | Transform operations for UK service businesses"
+        title="Workflow Automation That Saves 10-20 Hours Per Week | Antek Automation UK"
+        description="Custom n8n workflows for UK businesses | Automate data entry, invoicing & lead management | Eliminate busywork & reclaim 10-20 hours per week"
         path="/services/workflow-automation"
         breadcrumbs={breadcrumbs}
       />
@@ -34,13 +34,19 @@ export function WorkflowAutomationPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-28">
           <div className="max-w-4xl">
             <p className="text-sm uppercase tracking-wide text-charcoal mb-4 font-black">
-              WORKFLOW AUTOMATION | SAVE 10-20 HOURS WEEKLY | UK SERVICE BUSINESSES
+              WORKFLOW AUTOMATION | SAVE 10-20 HOURS WEEKLY | ELIMINATE BUSYWORK
             </p>
             <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-              Workflow Automation | Antek Automation
+              Stop Wasting Hours on Repetitive Tasks
             </h1>
+            <p className="text-lg text-charcoal leading-normal mb-4">
+              <strong>The Problem:</strong> Your team spends hours every week on manual data entry, copying information between systems, sending the same emails repeatedly, chasing invoices, and updating spreadsheets. That's not work—that's busywork.
+            </p>
+            <p className="text-lg text-charcoal leading-normal mb-4">
+              <strong>What It's Costing:</strong> Every hour spent on repetitive tasks is NOT spent growing revenue, serving customers, or building your business. That's 10-20 hours per week—over 500 hours per year—wasted on work a computer could do instantly.
+            </p>
             <p className="text-lg text-charcoal leading-normal mb-8">
-              Your business shouldn't require you to manually copy data between systems, send the same emails repeatedly, or chase payments. We build custom workflows using n8n that connect your tools and automate the repetitive work—so you can focus on growth.
+              <strong>The Solution:</strong> Custom n8n workflows that connect your tools and automate repetitive tasks. From lead capture to invoicing, eliminate manual work and reclaim 10-20 hours per week to focus on what actually grows your business.
             </p>
             <div className="flex flex-col md:flex-row gap-4 md:gap-6 flex-wrap">
               <button
@@ -56,7 +62,7 @@ export function WorkflowAutomationPage() {
                     See What We Automate
                   </div>
                   <div className="text-xs text-off-white mt-1">
-                    Common workflows for UK trades
+                    Popular workflows for UK businesses
                   </div>
                 </div>
               </button>
@@ -205,7 +211,7 @@ export function WorkflowAutomationPage() {
               Tools We Connect
             </h2>
             <p className="text-lg text-charcoal">
-              n8n integrates with 400+ apps. Here are the most common for UK service businesses:
+              n8n integrates with 400+ apps. Here are the most common for UK businesses:
             </p>
           </div>
 
@@ -215,9 +221,9 @@ export function WorkflowAutomationPage() {
               'Gmail / Outlook',
               'WhatsApp / SMS',
               'Xero / QuickBooks',
-              'Stripe / GoCardless',
-              'Jobber / Tradify',
-              'WordPress / Wix',
+              'Stripe / PayPal',
+              'HubSpot / Salesforce',
+              'Shopify / WooCommerce',
               'Slack / Microsoft Teams',
             ].map((tool, index) => (
               <Card key={index}>
@@ -238,10 +244,10 @@ export function WorkflowAutomationPage() {
           <Card>
             <div className="border-l-4 border-charcoal pl-6">
               <p className="text-lg text-charcoal leading-normal mb-4 italic">
-                "We were spending 15+ hours every week on admin: copying customer details between systems, sending reminder emails, chasing invoices. Antek built workflows that do all of it automatically. We've reclaimed nearly a full work week—and that time now goes into actually growing the business."
+                "Our consultancy was drowning in admin: updating CRM records, sending client reports, tracking project hours, chasing invoices. Antek built workflows that eliminated all the manual work. We've reclaimed nearly 20 hours per week—time that now goes into serving clients and winning new business."
               </p>
               <p className="font-black text-charcoal uppercase text-sm">
-                — Sarah P., Cleaning Company Owner, Leeds
+                — David L., Managing Partner, Management Consultancy, Birmingham
               </p>
             </div>
           </Card>

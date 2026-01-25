@@ -183,17 +183,21 @@ VITE_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
 
 **Setup:**
 - Analytics tracking is configured in the app initialization
-- Tracks page views, user interactions, and form submissions
+- Tracks page views automatically on route changes via `src/utils/analytics.ts`
+- `trackPageView(path)` function is called in `App.tsx` on initial load and route changes
 - Sent through the `VITE_GOOGLE_ANALYTICS_ID` environment variable
 - Important: Environment variable must be set before build time (Vite bakes it into the bundle)
 - For development, update `.env` and restart dev server
 - For production, set environment variable before running `npm run build`
 
 **Tracking Points:**
-- Page navigation (automatically tracked on route changes)
+- Page navigation (automatically tracked on route changes via `trackPageView()` in App.tsx)
 - Form submissions (contact form)
 - Chatbot interactions (message sends)
 - Button clicks (CTA buttons, service links)
+
+**Implementation:**
+The `src/utils/analytics.ts` utility provides a `trackPageView(path: string)` function that sends page view events to Google Analytics. This is automatically called in `App.tsx` during initial render and whenever the route changes via the popstate event listener.
 
 ## Technology Stack
 
@@ -352,13 +356,14 @@ try {
 
 ### Components
 - `src/components/Navigation.tsx` - Global header with logo, nav links, services dropdown, responsive menu
-- `src/components/Footer.tsx` - Global footer with links, copyright info
+- `src/components/Footer.tsx` - Global footer with links, copyright info, uses SocialLinks component
 - `src/components/ChatbotWidget.tsx` - AI chatbot widget (persistent, all pages, webhook-driven, auto-opens first visit)
 - `src/components/VoiceChat.tsx` - Voice chat modal with ElevenLabs agent integration
 - `src/components/Button.tsx` - Button primitive: `variant="primary"` or `variant="secondary"`, brutalist styling
 - `src/components/Card.tsx` - Card primitive: `hover` prop enables translate + shadow effect on hover
 - `src/components/Icon.tsx` - Icon wrapper component using lucide-react
 - `src/components/SEOHead.tsx` - Sets meta tags, title, description, JSON-LD schema markup
+- `src/components/SocialLinks.tsx` - Social media links component (Twitter, YouTube, LinkedIn, Google Business)
 - `src/components/ChatbotDemoButton.tsx` - Reusable CTA button to trigger chatbot widget demo
 - `src/components/VoiceAgentDemoButton.tsx` - Reusable CTA button to launch voice agent modal
 - `src/components/VoiceDemoButton.tsx` - Alternative variant of voice demo button
@@ -366,6 +371,10 @@ try {
 ### Data & Types
 - `src/data/cities.ts` - City data for location pages (name, slug, description, testimonials, service offerings)
 - `src/types/index.ts` - All TypeScript interfaces: `ContactFormData`, `ChatMessage`, `ChatState`
+- `src/constants/index.ts` - Application constants (ElevenLabs agent ID, chatbot config, webhook sources, company info)
+
+### Utilities
+- `src/utils/analytics.ts` - Google Analytics tracking helper (trackPageView function for route changes)
 
 ### Configuration
 - `vite.config.ts` - Vite build config (React plugin, lucide-react HMR optimisation)
@@ -379,29 +388,37 @@ try {
 
 ### Understanding Code Splitting & Lazy Loading
 
-**Important Pattern**: Pages are lazy-loaded to keep the initial bundle small (~60KB gzipped). This affects how components are imported:
+**Important Pattern**: Most pages are lazy-loaded to keep the initial bundle small (~60KB gzipped). This affects how components are imported:
 
 ```typescript
-// ✅ Pages are lazy-loaded (only imported when route is visited)
-const HomePage = lazy(() => import('./pages/HomePage'));
+// ✅ HomePage is eagerly loaded (always available, shown on initial route)
+import { HomePage } from './pages/HomePage';
+
+// ✅ Other pages are lazy-loaded (only imported when route is visited)
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const AIChatbotsPage = lazy(() => import('./pages/AIChatbotsPage'));
+const AIVoiceAssistantsPage = lazy(() => import('./pages/AIVoiceAssistantsPage'));
 
-// ✅ Utilities are eagerly imported (available everywhere)
-import { SEOHead } from './components/SEOHead';
+// ✅ Utilities and layout components are eagerly imported (available everywhere)
 import { Navigation } from './components/Navigation';
+import { Footer } from './components/Footer';
 ```
+
+**Why HomePage is NOT lazy-loaded:**
+- HomePage is the landing page and needs to render immediately on first visit
+- Lazy loading HomePage would add unnecessary delay to the initial page load
+- Other pages (Contact, Services) are lazy-loaded since they're accessed via navigation
 
 **When adding a new page:**
 1. Create component in `src/pages/NewPage.tsx`
-2. In `App.tsx`, use lazy loading: `const NewPage = lazy(() => import('./pages/NewPage'));`
-3. Add route case and wrap in `<Suspense>` with fallback (see HomePage pattern)
-4. Do NOT convert existing lazy-loaded pages to synchronous imports
+2. In `App.tsx`, use lazy loading: `const NewPage = lazy(() => import('./pages/NewPage').then(m => ({ default: m.NewPage })));`
+3. Add route case and wrap in `<Suspense>` with fallback (see existing pattern in renderPage())
+4. Do NOT convert existing lazy-loaded pages to synchronous imports unless it's a landing page
 
 **Performance Impact:**
-- First page load (~5 seconds): Only HomePage, Navigation, Footer load
-- Route change: Relevant page chunk downloads and renders (might have brief loading state)
-- This trade-off improves First Contentful Paint (FCP) for initial page load
+- First page load: HomePage, Navigation, Footer, and vendor libraries load immediately
+- Route change: Relevant page chunk downloads and renders (might have brief loading state with Suspense fallback)
+- This trade-off improves First Contentful Paint (FCP) for initial page load while keeping bundle small
 
 ### Git & Commit Workflow
 
@@ -495,10 +512,35 @@ git commit -m "Description of changes"
 
 ### ElevenLabs Voice Integration
 - Voice chat component located in `src/components/VoiceChat.tsx`
-- Requires ElevenLabs agent ID configured in component props
+- Agent ID is centralized in `src/constants/index.ts` as `CONSTANTS.ELEVENLABS_AGENT_ID`
 - Sends session context including `sessionId`, `userId`, page URL to ElevenLabs
 - Modal opens via custom event: `window.dispatchEvent(new Event('openVoiceChat'))`
 - Voice integration available on `AIVoiceAssistantsPage` as demo
+
+### Application Constants
+The `src/constants/index.ts` file centralizes all application-wide constants:
+- **ElevenLabs Configuration**: `ELEVENLABS_AGENT_ID` for voice agent integration
+- **Chatbot Settings**: Auto-open delay (5000ms), localStorage key (`chatbot_visited`), welcome message
+- **Webhook Sources**: `WEBHOOK_SOURCE_CHATBOT` and `WEBHOOK_SOURCE_CONTACT_FORM` constants for tracking
+- **Company Info**: Company name, domain, contact email
+
+**Usage Pattern:**
+```typescript
+import { CONSTANTS } from '../constants';
+
+// Example: Using chatbot constants
+const autoOpenDelay = CONSTANTS.CHATBOT_AUTO_OPEN_DELAY_MS;
+const visitedKey = CONSTANTS.CHATBOT_VISITED_KEY;
+
+// Example: Using webhook source constants
+const payload = { source: CONSTANTS.WEBHOOK_SOURCE_CHATBOT, ... };
+```
+
+**Why Centralized Constants:**
+- Single source of truth for configuration values
+- Easier to update values across the entire app
+- Type-safe access to constants (no magic strings)
+- Improves maintainability and reduces errors from typos
 
 ## Local Testing with n8n
 
@@ -621,13 +663,13 @@ Run `npm run typecheck` before committing to catch type errors.
 ## Performance Considerations
 
 ### Code Splitting & Lazy Loading
-- **Initial Load**: Only HomePage, Navigation, Footer, and necessary vendor libraries load on first visit (~60KB gzipped)
-- **Lazy Loaded**: Service pages and ChatbotWidget load on-demand via `React.lazy()` when needed
-- **React.lazy() + Suspense**: Pages wrapped with lazy loading have a Suspense fallback (blank container) while chunks download. This is intentional to keep initial bundle small.
-- **ChatbotWidget**: Lazy-loads after 5 seconds via separate chunk, doesn't block initial render. Improves First Contentful Paint (FCP).
-- **Chunk Names**: App.tsx uses `.then(m => ({ default: m.ComponentName }))` pattern to extract named exports from dynamic imports
+- **Initial Load**: HomePage (eager), Navigation, Footer, and necessary vendor libraries load on first visit (~60KB gzipped)
+- **Lazy Loaded**: Service pages (Contact, AI Chatbots, AI Voice, Workflow Automation, Location pages) and ChatbotWidget load on-demand via `React.lazy()` when needed
+- **React.lazy() + Suspense**: Pages wrapped with lazy loading have a Suspense fallback (blank container with `min-h-screen` styling) while chunks download. This is intentional to keep initial bundle small.
+- **ChatbotWidget**: Lazy-loads separately and auto-opens after 5 seconds on first visit (doesn't block initial render). Improves First Contentful Paint (FCP).
+- **Chunk Names**: App.tsx uses `.then(m => ({ default: m.ComponentName }))` pattern to extract named exports from dynamic imports (ensures correct component name appears in build output)
 
-**Important:** When modifying App.tsx, maintain the current lazy-loading pattern. Do not convert lazy-loaded pages to synchronous imports unless performance testing shows it's beneficial.
+**Important:** When modifying App.tsx, maintain the current lazy-loading pattern. HomePage should remain eagerly loaded (it's the landing page). Do not convert other lazy-loaded pages to synchronous imports unless they become landing pages.
 
 ### Bundle Optimisation
 - Lucide-react icons excluded from dependency pre-optimisation (uses native ES modules)

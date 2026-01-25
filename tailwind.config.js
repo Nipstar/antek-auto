@@ -16,6 +16,9 @@ export default {
       },
       borderWidth: {
         '3': '3px',
+        '4': '4px',
+        '6': '6px',
+        '8': '8px',
       },
       boxShadow: {
         'brutal': '6px 6px 0 #1A1A1A',

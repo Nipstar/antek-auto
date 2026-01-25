@@ -4,6 +4,8 @@ import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
 import { VoiceDemoButton } from '../components/VoiceDemoButton';
+import { CaseStudyCard } from '../components/CaseStudyCard';
+import { caseStudies } from '../data/caseStudies';
 
 const VoiceChat = lazy(() => import('../components/VoiceChat').then(m => ({ default: m.VoiceChat })));
 
@@ -34,7 +36,7 @@ export function HomePage() {
     "headline": "AI Automation Agency UK",
     "alternativeHeadline": "AI That Works for Your Business",
     "abstract": "Official website of Antek Automation, an AI automation agency in the UK.",
-    "description": "Antek Automation deploys AI chatbots, voice agents, and workflow automation that work 24/7 to capture leads, book appointments, and grow revenue for service businesses by reducing missed calls, slow responses, and administrative burden.",
+    "description": "Antek Automation deploys AI chatbots, voice agents, and workflow automation that work 24/7 to capture leads, book appointments, and grow revenue for businesses across hospitality, professional services, healthcare, and retail by reducing missed calls, slow responses, and administrative burden.",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://www.antekautomation.com/#webpage"
@@ -45,12 +47,17 @@ export function HomePage() {
       "AI automation agency UK",
       "AI voice agents",
       "AI phone answering service",
-      "AI chatbots for service businesses",
+      "AI chatbots for businesses",
       "appointment booking automation",
       "lead capture automation",
       "workflow automation",
       "customer support automation",
       "AI receptionist",
+      "AI for restaurants",
+      "AI for professional services",
+      "AI for healthcare clinics",
+      "AI for retail businesses",
+      "AI for consultancies",
       "Retell AI partner"
     ],
     "image": {
@@ -83,7 +90,7 @@ export function HomePage() {
       "name": "Antek Automation",
       "alternateName": ["Antek AI Automation"],
       "url": "https://www.antekautomation.com/",
-      "description": "AI automation agency providing AI chatbots, voice AI phone agents, and workflow automation to capture leads, book appointments, and handle customer queries 24/7.",
+      "description": "AI automation agency providing AI chatbots, voice AI phone agents, and workflow automation to businesses across all industries—helping restaurants, consultancies, healthcare, and retail capture leads, book appointments, and handle customer queries 24/7.",
       "email": "hello@antekautomation.com",
       "telephone": "+44-3330-389960",
       "address": {
@@ -314,7 +321,7 @@ export function HomePage() {
               "serviceType": "AI chatbot deployment and website chat automation",
               "provider": { "@id": "https://www.antekautomation.com/#organization" },
               "areaServed": "GB",
-              "audience": { "@type": "BusinessAudience", "name": "Service businesses" },
+              "audience": { "@type": "BusinessAudience", "name": "UK businesses" },
               "category": [
                 {
                   "@type": "DefinedTerm",
@@ -357,7 +364,7 @@ export function HomePage() {
               "serviceType": "AI voice agent call handling and booking automation",
               "provider": { "@id": "https://www.antekautomation.com/#organization" },
               "areaServed": "GB",
-              "audience": { "@type": "BusinessAudience", "name": "Service businesses" },
+              "audience": { "@type": "BusinessAudience", "name": "UK businesses" },
               "category": [
                 {
                   "@type": "DefinedTerm",
@@ -661,8 +668,8 @@ export function HomePage() {
   return (
     <div className="bg-off-white">
       <SEOHead
-        title="Antek Automation | AI Automation Agency UK"
-        description="Losing customers to missed calls? | AI voice assistants & chatbots capture every lead 24/7 | UK automation agency for service businesses"
+        title="AI Voice Agents & Chatbots That Never Miss a Call | Antek Automation UK"
+        description="AI voice agents & chatbots for UK businesses | Answer every call 24/7 | Capture leads & book appointments | Never miss revenue from missed calls"
         path="/"
         schema={homePageSchema}
       />
@@ -671,14 +678,25 @@ export function HomePage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-                Antek Automation | Ai Automation Agency UK
+                YOUR CUSTOMERS ARE CALLING. ARE YOU ANSWERING?
               </h1>
-              <p className="text-xl md:text-2xl font-bold text-terracotta mb-6">
-                AI That Works for Your Business
+              <p className="text-xl md:text-2xl font-bold text-terracotta mb-8">
+                AI That Answers Every Call, Books Every Appointment, and Never Takes a Day Off
               </p>
-              <p className="text-lg text-charcoal leading-normal mb-8">
-                Stop losing customers to missed calls and slow responses. Antek Automation deploys AI chatbots, voice agents, and workflow automation that work 24/7 to capture leads, book appointments, and grow your revenue.
-              </p>
+
+              <div className="space-y-5 mb-8">
+                <p className="text-lg text-charcoal leading-relaxed">
+                  <strong className="font-black">Problem:</strong> Your business loses opportunities every day. Calls go to voicemail. Website visitors leave without engaging. Customers ask questions at 11pm when you're closed.
+                </p>
+
+                <p className="text-lg text-charcoal leading-relaxed">
+                  <strong className="font-black">Agitate:</strong> Every missed call is lost revenue. Every unanswered website chat is a competitor's new customer. Your team is buried in repetitive questions instead of growing the business.
+                </p>
+
+                <p className="text-lg text-charcoal leading-relaxed">
+                  <strong className="font-black">Solution:</strong> Antek Automation deploys AI voice agents, chatbots, and workflow automation that work 24/7 to capture leads, book appointments, and answer questions—so your team can focus on what matters most.
+                </p>
+              </div>
               <div className="flex flex-col md:flex-row gap-4 md:gap-6">
                 <VoiceDemoButton onClick={() => setIsVoiceChatOpen(true)} />
                 <Button variant="secondary" onClick={() => navigate('/contact')}>Book a Call</Button>
@@ -726,7 +744,7 @@ export function HomePage() {
                     Missed Opportunities
                   </h3>
                   <p className="text-charcoal leading-normal">
-                    65% of customers won't leave a voicemail. Every missed call is a lost customer to your competitor who answered first.
+                    55% of customers won't leave a voicemail. Every missed call is a lost customer to your competitor who answered first. Each missed opportunity could be worth hundreds or thousands in revenue.
                   </p>
                 </div>
               </div>
@@ -742,7 +760,7 @@ export function HomePage() {
                     Slow Response Times
                   </h3>
                   <p className="text-charcoal leading-normal">
-                    Customers expect instant answers. Responding in hours instead of minutes means losing business to faster competitors.
+                    78% of customers choose the business that responds first. Responding in hours instead of minutes means losing business to faster competitors who answer instantly.
                   </p>
                 </div>
               </div>
@@ -758,7 +776,7 @@ export function HomePage() {
                     Administrative Burden
                   </h3>
                   <p className="text-charcoal leading-normal">
-                    Hours wasted on scheduling, follow-ups, and repetitive questions. Time that should be spent growing your business.
+                    Your team spends hours every week on scheduling, follow-ups, and answering the same questions repeatedly. That's time not spent serving customers or growing revenue.
                   </p>
                 </div>
               </div>
@@ -774,7 +792,7 @@ export function HomePage() {
                     Limited Availability
                   </h3>
                   <p className="text-charcoal leading-normal">
-                    Your business sleeps but customers don't. Late-night inquiries go to competitors who never close.
+                    Customers expect 24/7 availability, but your team can't work around the clock. Evening and weekend inquiries go to competitors who never close—costing you business while you sleep.
                   </p>
                 </div>
               </div>
@@ -801,7 +819,7 @@ export function HomePage() {
                 AI Chatbots
               </h3>
               <p className="text-charcoal leading-normal mb-6">
-                Website chat that qualifies leads, answers FAQs, and books appointments instantly while you focus on delivering service.
+                Website chat that engages visitors 24/7, qualifies leads, answers customer questions, and books appointments instantly—turning browsers into buyers even when your team is offline.
               </p>
               <Button variant="primary" className="w-full" onClick={() => navigate('/services/ai-chatbots')}>Learn More</Button>
             </Card>
@@ -812,7 +830,7 @@ export function HomePage() {
                 Voice AI
               </h3>
               <p className="text-charcoal leading-normal mb-6">
-                Phone agents that answer calls, take bookings, and handle customer questions with natural conversation 24/7.
+                AI phone agents that answer every call with natural conversation, capture lead details, book appointments, and handle customer inquiries 24/7—so you never miss an opportunity.
               </p>
               <Button variant="primary" className="w-full" onClick={() => navigate('/services/ai-voice-assistants')}>Learn More</Button>
             </Card>
@@ -823,7 +841,7 @@ export function HomePage() {
                 Automation
               </h3>
               <p className="text-charcoal leading-normal mb-6">
-                Connect your tools and eliminate repetitive tasks. From scheduling to invoicing, let AI handle the busywork.
+                Custom workflows that connect your tools and eliminate hours of manual work. From data entry to invoicing, automate the busywork and reclaim 10-20 hours per week to focus on growth.
               </p>
               <Button variant="primary" className="w-full" onClick={() => navigate('/services/workflow-automation')}>Learn More</Button>
             </Card>
@@ -831,50 +849,50 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 md:py-28">
+      <section className="py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
+          <div className="text-center mb-20">
+            <h2 className="font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight-lg text-charcoal mb-4">
               How It Works
             </h2>
-            <p className="text-lg text-charcoal max-w-2xl mx-auto leading-normal">
+            <p className="text-lg md:text-xl text-charcoal/80 max-w-2xl mx-auto leading-relaxed">
               From setup to success in three simple steps
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
             <div className="text-center">
-              <div className="w-20 h-20 bg-terracotta text-off-white flex items-center justify-center font-black text-4xl border-3 border-charcoal shadow-brutal mx-auto mb-6">
+              <div className="w-24 h-24 bg-terracotta text-off-white flex items-center justify-center font-black text-5xl border-4 border-charcoal shadow-[4px_4px_0px_#000000] mx-auto mb-8">
                 1
               </div>
-              <h3 className="font-black text-2xl uppercase text-charcoal mb-4">
+              <h3 className="font-black text-xl uppercase text-charcoal mb-4 tracking-wide">
                 Discovery Call
               </h3>
-              <p className="text-charcoal leading-normal">
+              <p className="text-charcoal/70 leading-relaxed text-base">
                 We learn about your business, customers, and processes. Takes 30 minutes. Zero commitment required.
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-20 h-20 bg-terracotta text-off-white flex items-center justify-center font-black text-4xl border-3 border-charcoal shadow-brutal mx-auto mb-6">
+              <div className="w-24 h-24 bg-terracotta text-off-white flex items-center justify-center font-black text-5xl border-4 border-charcoal shadow-[4px_4px_0px_#000000] mx-auto mb-8">
                 2
               </div>
-              <h3 className="font-black text-2xl uppercase text-charcoal mb-4">
+              <h3 className="font-black text-xl uppercase text-charcoal mb-4 tracking-wide">
                 Custom Setup
               </h3>
-              <p className="text-charcoal leading-normal">
+              <p className="text-charcoal/70 leading-relaxed text-base">
                 We build and train your AI agents on your services, pricing, and availability. Ready in 1-2 weeks.
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-20 h-20 bg-terracotta text-off-white flex items-center justify-center font-black text-4xl border-3 border-charcoal shadow-brutal mx-auto mb-6">
+              <div className="w-24 h-24 bg-terracotta text-off-white flex items-center justify-center font-black text-5xl border-4 border-charcoal shadow-[4px_4px_0px_#000000] mx-auto mb-8">
                 3
               </div>
-              <h3 className="font-black text-2xl uppercase text-charcoal mb-4">
+              <h3 className="font-black text-xl uppercase text-charcoal mb-4 tracking-wide">
                 Launch & Grow
               </h3>
-              <p className="text-charcoal leading-normal">
+              <p className="text-charcoal/70 leading-relaxed text-base">
                 Your AI starts working immediately. We monitor, optimise, and help you scale as you grow.
               </p>
             </div>
@@ -882,67 +900,86 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="bg-soft-sage border-y-3 border-charcoal py-20 md:py-28" id="industries">
+      <section className="bg-off-white border-b-4 border-charcoal py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
-              Industries We Serve
+          <div className="text-center mb-20">
+            <h2 className="font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight-lg text-charcoal mb-6">
+              PROVEN RESULTS ACROSS INDUSTRIES
+            </h2>
+            <p className="text-xl md:text-2xl font-bold text-charcoal max-w-2xl mx-auto">
+              Real businesses. Real ROI. Real fast.
+            </p>
+          </div>
+
+          <div className="space-y-0">
+            {caseStudies.map((caseStudy) => (
+              <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-soft-sage border-y-4 border-charcoal py-24 md:py-32" id="industries">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="text-center mb-20">
+            <h2 className="font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight-lg text-charcoal mb-4">
+              TRUSTED BY BUSINESSES ACROSS INDUSTRIES
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-6">
-            <Card hover>
-              <Icon letter="T" size="md" />
-              <h3 className="font-black text-xl uppercase text-charcoal mt-4 mb-2">
-                Tradespeople
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            <Card hover className="text-center p-8 md:p-10 transition-all duration-200 hover:-translate-y-1">
+              <Icon letter="H" size="lg" />
+              <h3 className="font-black text-lg uppercase text-charcoal mt-6 mb-3 tracking-wide">
+                HOSPITALITY
               </h3>
-              <p className="text-sm text-charcoal leading-normal">
-                Plumbers, electricians, builders who need 24/7 call handling
+              <p className="text-sm text-charcoal/80 leading-relaxed">
+                Restaurants, hotels, catering, event venues, food service
               </p>
             </Card>
 
-            <Card hover>
-              <Icon letter="C" size="md" />
-              <h3 className="font-black text-xl uppercase text-charcoal mt-4 mb-2">
-                Cleaning
+            <Card hover className="text-center p-8 md:p-10 transition-all duration-200 hover:-translate-y-1">
+              <Icon letter="P" size="lg" />
+              <h3 className="font-black text-lg uppercase text-charcoal mt-6 mb-3 tracking-wide">
+                PROFESSIONAL SERVICES
               </h3>
-              <p className="text-sm text-charcoal leading-normal">
-                Residential and commercial cleaning services
+              <p className="text-sm text-charcoal/80 leading-relaxed">
+                Consultants, accountants, lawyers, financial advisors, agencies, coaches
               </p>
             </Card>
 
-            <Card hover>
-              <Icon letter="P" size="md" />
-              <h3 className="font-black text-xl uppercase text-charcoal mt-4 mb-2">
-                Professional
+            <Card hover className="text-center p-8 md:p-10 transition-all duration-200 hover:-translate-y-1">
+              <Icon letter="W" size="lg" />
+              <h3 className="font-black text-lg uppercase text-charcoal mt-6 mb-3 tracking-wide">
+                WELLNESS & BEAUTY
               </h3>
-              <p className="text-sm text-charcoal leading-normal">
-                Consultants, accountants, legal services
+              <p className="text-sm text-charcoal/80 leading-relaxed">
+                Salons, spas, fitness studios, clinics, wellness centers, pet grooming
               </p>
             </Card>
 
-            <Card hover>
-              <Icon letter="B" size="md" />
-              <h3 className="font-black text-xl uppercase text-charcoal mt-4 mb-2">
-                Beauty
+            <Card hover className="text-center p-8 md:p-10 transition-all duration-200 hover:-translate-y-1">
+              <Icon letter="R" size="lg" />
+              <h3 className="font-black text-lg uppercase text-charcoal mt-6 mb-3 tracking-wide">
+                BUSINESS SERVICES
               </h3>
-              <p className="text-sm text-charcoal leading-normal">
-                Salons, spas, wellness centers
+              <p className="text-sm text-charcoal/80 leading-relaxed">
+                Cleaning, property management, facilities, maintenance, logistics
               </p>
             </Card>
           </div>
         </div>
       </section>
 
-      <section className="bg-charcoal py-20 md:py-28">
+      <section className="bg-charcoal border-t-8 border-terracotta py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
-          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-off-white mb-6">
+          <h2 className="font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight-lg text-off-white mb-6">
             Ready to Automate Your Business?
           </h2>
-          <p className="text-lg text-off-white leading-normal mb-8">
-            Book a free consultation and discover how AI can transform your service business
+          <p className="text-lg md:text-xl text-off-white/90 leading-relaxed mb-10">
+            Book a free consultation and discover how AI can transform your business
           </p>
-          <Button variant="primary" className="text-lg px-10" onClick={() => navigate('/contact')}>
+          <Button variant="primary" className="text-base md:text-lg px-12 py-5 font-bold uppercase tracking-wide shadow-[4px_4px_0px_#000000] hover:shadow-[2px_2px_0px_#000000] transition-all" onClick={() => navigate('/contact')}>
             Get Started Today
           </Button>
         </div>
