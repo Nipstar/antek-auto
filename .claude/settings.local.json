@@ -23,7 +23,8 @@
       "Bash(npm run dev:*)",
       "Bash(npm run lint:*)",
       "Bash(npm install:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(lsof:*)"
     ],
     "deny": [],
     "ask": []

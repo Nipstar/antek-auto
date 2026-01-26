@@ -675,51 +675,28 @@ export function HomePage() {
       />
       <section className="bg-warm-beige border-b-3 border-charcoal">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-28">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-                YOUR CUSTOMERS ARE CALLING. ARE YOU ANSWERING?
-              </h1>
-              <p className="text-xl md:text-2xl font-bold text-terracotta mb-8">
-                AI That Answers Every Call, Books Every Appointment, and Never Takes a Day Off
-              </p>
-
-              <div className="space-y-5 mb-8">
-                <p className="text-lg text-charcoal leading-relaxed">
-                  <strong className="font-black">Problem:</strong> Your business loses opportunities every day. Calls go to voicemail. Website visitors leave without engaging. Customers ask questions at 11pm when you're closed.
-                </p>
-
-                <p className="text-lg text-charcoal leading-relaxed">
-                  <strong className="font-black">Agitate:</strong> Every missed call is lost revenue. Every unanswered website chat is a competitor's new customer. Your team is buried in repetitive questions instead of growing the business.
-                </p>
-
-                <p className="text-lg text-charcoal leading-relaxed">
-                  <strong className="font-black">Solution:</strong> Antek Automation deploys AI voice agents, chatbots, and workflow automation that work 24/7 to capture leads, book appointments, and answer questions—so your team can focus on what matters most.
-                </p>
-              </div>
-              <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-                <VoiceDemoButton onClick={() => setIsVoiceChatOpen(true)} />
-                <Button variant="secondary" onClick={() => navigate('/contact')}>Book a Call</Button>
-              </div>
+          <div className="max-w-4xl">
+            <p className="text-sm uppercase tracking-wide text-charcoal mb-4 font-black">
+              AI AUTOMATION | 24/7 AVAILABILITY | NEVER MISS A LEAD
+            </p>
+            <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
+              AI That Answers Every Call, Books Every Appointment, and Never Takes a Day Off
+            </h1>
+            <p className="text-lg text-charcoal leading-normal mb-4">
+              <strong className="font-black">The Problem:</strong> Your business loses opportunities every day. Calls go to voicemail. Website visitors leave without engaging. Customers ask questions at 11pm when you're closed.
+            </p>
+            <p className="text-lg text-charcoal leading-normal mb-4">
+              <strong className="font-black">The Cost:</strong> Every missed call is lost revenue. Every unanswered website chat is a competitor's new customer. Your team is buried in repetitive questions instead of growing the business.
+            </p>
+            <p className="text-lg text-charcoal leading-normal mb-8">
+              <strong className="font-black">The Solution:</strong> Antek Automation deploys AI voice agents, chatbots, and workflow automation that work 24/7 to capture leads, book appointments, and answer questions—so your team can focus on what matters most.
+            </p>
+            <div className="mb-6">
+              <p className="text-sm font-black uppercase text-charcoal mb-4">Try it yourself →</p>
             </div>
-            <div className="relative">
-              <Card hover className="bg-soft-sage">
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <Icon letter="A" size="md" />
-                    <div>
-                      <p className="font-black uppercase text-sm">AI Agent</p>
-                      <p className="text-sm text-charcoal">Available 24/7</p>
-                    </div>
-                  </div>
-                  <div className="border-3 border-charcoal bg-white p-4">
-                    <p className="text-sm font-bold">Customer: "Can I book for tomorrow?"</p>
-                  </div>
-                  <div className="border-3 border-charcoal bg-warm-beige p-4">
-                    <p className="text-sm font-bold">AI: "Of course! I have slots at 10am, 2pm, and 4pm available. Which works best?"</p>
-                  </div>
-                </div>
-              </Card>
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+              <VoiceDemoButton onClick={() => setIsVoiceChatOpen(true)} />
+              <Button variant="secondary" onClick={() => navigate('/contact')}>Book a Call</Button>
             </div>
           </div>
         </div>
