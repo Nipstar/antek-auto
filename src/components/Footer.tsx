@@ -41,6 +41,11 @@ export function Footer() {
                   Automation
                 </a>
               </li>
+              <li>
+                <a href="/onboarding/voice-receptionist" className="text-gray-300 hover:text-terracotta transition-colors text-sm">
+                  Voice Onboarding
+                </a>
+              </li>
             </ul>
           </div>
 

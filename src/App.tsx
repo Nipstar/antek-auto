@@ -15,6 +15,7 @@ const WorkflowAutomationPage = lazy(() => import('./pages/WorkflowAutomationPage
 const LocationPage = lazy(() => import('./pages/LocationPage').then(m => ({ default: m.LocationPage })));
 const TermsOfBusinessPage = lazy(() => import('./pages/TermsOfBusinessPage').then(m => ({ default: m.TermsOfBusinessPage })));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })));
+const OnboardingVoicePage = lazy(() => import('./pages/OnboardingVoicePage').then(m => ({ default: m.OnboardingVoicePage })));
 
 // Global navigate function for easy access in onClick handlers
 const navigate = (path: string) => {
@@ -66,6 +67,8 @@ function App() {
         return <TermsOfBusinessPage />;
       case '/privacy-policy':
         return <PrivacyPolicyPage />;
+      case '/onboarding/voice-receptionist':
+        return <OnboardingVoicePage />;
       default:
         return <HomePage />;
     }
