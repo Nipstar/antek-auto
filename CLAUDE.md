@@ -66,7 +66,7 @@ npm run build
 - React Hooks rules catch common bugs (hooks only at top level, dependency arrays, etc.)
 - Linting ensures code consistency across the team
 - Build verification catches tree-shaking and bundling issues early
-- **Failing these checks will block your commits** if you have pre-commit hooks configured
+- Failing these checks means broken code could enter the repository
 
 ### Quick Reference
 
@@ -100,7 +100,7 @@ The current route is determined by `window.location.pathname`. Navigation automa
 - The browser address bar always shows the actual path (no hash needed for routing to work)
 
 **Dynamic Location Routes:**
-Location pages use a slug-based pattern (e.g., `/locations/london-ai-automation`). The `LocationPage` component receives the `citySlug` prop extracted from the route.
+Location pages use a slug-based pattern (e.g., `/locations/london`, `/locations/birmingham`). Slugs are simple city names defined in `src/data/cities.ts`. The `LocationPage` component receives the `citySlug` prop extracted from the route.
 
 ### Component Structure
 - **Pages** (`src/pages/`): Top-level page components
@@ -116,6 +116,7 @@ Location pages use a slug-based pattern (e.g., `/locations/london-ai-automation`
   - `ChatbotWidget.tsx`: Persistent chatbot that appears on all pages
   - `Navigation.tsx` & `Footer.tsx`: Global layout components
   - `Button.tsx`, `Card.tsx`, `Icon.tsx`: Design system primitives
+  - `CaseStudyCard.tsx`: Renders case study cards with metrics
   - `ChatbotDemoButton.tsx`: CTA button to launch chatbot demo
   - `VoiceAgentDemoButton.tsx`: CTA button to launch voice agent demo
   - `VoiceDemoButton.tsx`: Alternative voice demo button variant
@@ -198,6 +199,10 @@ VITE_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
 
 **Implementation:**
 The `src/utils/analytics.ts` utility provides a `trackPageView(path: string)` function that sends page view events to Google Analytics. This is automatically called in `App.tsx` during initial render and whenever the route changes via the popstate event listener.
+
+### Meta Pixel (Facebook Pixel)
+
+Meta Pixel tracking is configured directly in `index.html` (not via environment variables). Pixel ID: `1430686008694674`. Tracks PageView on initial load with a noscript fallback in the body tag. When modifying `index.html`, preserve both the header script and the noscript img tag in the body.
 
 ## Technology Stack
 
@@ -310,6 +315,11 @@ export const MyPage = () => {
 - Schema markup should include context data relevant to each page (services, location, testimonials, etc.)
 - Open Graph and Twitter Card tags are automatically generated from title, description, and URL
 
+**SEO Assets** (in `public/`):
+- `sitemap.xml` - Complete site structure with lastmod dates (update when adding new pages/locations)
+- `robots.txt` - Search engine crawler permissions
+- `llms.txt` - AI crawler context file
+
 ### Webhook Communication & Error Handling
 - All webhook calls use `fetch()` with POST requests
 - Requests include `timestamp: new Date().toISOString()`
@@ -369,7 +379,8 @@ try {
 - `src/components/VoiceDemoButton.tsx` - Alternative variant of voice demo button
 
 ### Data & Types
-- `src/data/cities.ts` - City data for location pages (name, slug, description, testimonials, service offerings)
+- `src/data/cities.ts` - City data for location pages (name, slug, PAS framework content, case studies, testimonials)
+- `src/data/caseStudies.ts` - Case study data (restaurant, financial services, cleaning services) with metrics
 - `src/types/index.ts` - All TypeScript interfaces: `ContactFormData`, `ChatMessage`, `ChatState`
 - `src/constants/index.ts` - Application constants (ElevenLabs agent ID, chatbot config, webhook sources, company info)
 
@@ -422,46 +433,8 @@ import { Footer } from './components/Footer';
 
 ### Git & Commit Workflow
 
-This project uses **pre-commit hooks** (via Husky or similar) that automatically enforce quality checks before commits are created.
+No pre-commit hooks are currently installed (no Husky). Run checks manually before committing:
 
-**What Pre-Commit Hooks Do:**
-- Run TypeScript type checking (`npm run typecheck`)
-- Run ESLint linting (`npm run lint`)
-- Run production build verification (`npm run build`)
-- Block commits if any checks fail (prevents broken code from entering repository)
-- May auto-fix issues and require re-staging files
-
-**Commit Workflow:**
-```bash
-# 1. Make your changes
-git add src/...
-
-# 2. Attempt commit
-git commit -m "Description of changes"
-
-# 3. Pre-commit hooks run automatically
-# If all checks pass → commit succeeds
-# If checks fail → commit is blocked, review errors and fix
-
-# 4. After fixing issues, re-add files and commit again
-git add src/...
-git commit -m "Description of changes"
-```
-
-**If Pre-Commit Hooks Modify Files:**
-- This is intentional behavior (e.g., `npm run lint --fix` auto-fixes some issues)
-- Re-run `git status` to see what changed
-- Review the changes carefully
-- Re-add modified files: `git add src/...`
-- Try commit again
-
-**To Bypass Pre-Commit Hooks (Not Recommended):**
-```bash
-# Skip hooks entirely (use only if you know what you're doing)
-git commit --no-verify -m "Description"
-```
-
-**Manual Pre-Commit Checks (Run Before Committing):**
 ```bash
 # 1. Run type checker (catches TypeScript errors)
 npm run typecheck
@@ -492,10 +465,11 @@ git commit -m "Description of changes"
 5. Add `SEOHead` component with appropriate title, description, and schema
 
 ### Adding Location Pages
-- Add city data to `src/data/cities.ts` with unique slug
-- Route automatically works: `#/locations/city-slug` maps to LocationPage with `citySlug` prop
+- Add city data to `src/data/cities.ts` with unique slug (e.g., `'bristol'`)
+- Route automatically works: `/locations/bristol` maps to LocationPage with `citySlug` prop
 - No changes to `src/App.tsx` needed - uses dynamic route matching
 - LocationPage component extracts `citySlug` from route and looks up data
+- Update `public/sitemap.xml` to include the new location URL
 
 ### Webhook Modifications
 - Environment variables use `VITE_` prefix (Vite convention)
